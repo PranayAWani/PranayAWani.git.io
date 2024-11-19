@@ -1,0 +1,132 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f8f9fa; /* Light grey background */
+    color: #333; /* Dark grey text */
+}
+
+header {
+    background-color: #8fcfd1; /* Light teal */
+    height: 80px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+header h1 {
+    font-size: 2rem;
+    color: white;
+}
+
+nav {
+    margin: auto;
+    padding: 10px 35px;
+    height: 50px;
+    width: 100%;
+    background-color: #e0f7fa; /* Light cyan */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid #00796b; /* Teal border for a bit of accent */
+}
+
+nav .leftcont, nav .rightcont {
+    display: flex;
+    align-items: center;
+}
+
+nav .box {
+    padding: 10px 20px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s ease;
+    color: #00796b; /* Teal text for contrast */
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+nav .box:hover {
+    background-color: #b2dfdb; /* Light teal on hover */
+}
+
+nav a {
+    text-decoration: none;
+    color: inherit; /* Inherit text color */
+}
+
+main {
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+}
+
+.contact-container {
+    max-width: 600px;
+    background-color: #ffffff; /* White background for content */
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+}
+
+.contact-container h2 {
+    margin-bottom: 10px;
+    color: #00796b; /* Teal for headers */
+}
+
+.contact-container p {
+    margin-bottom: 20px;
+    line-height: 1.6;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+input, textarea {
+    margin-bottom: 15px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+button {
+    padding: 10px 20px;
+    background-color: #00796b;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #004d40;
+}
+
+footer {
+    background-color: #8fcfd1; /* Match the header color */
+    padding: 20px;
+    text-align: center;
+    color: white;
+}
+
+.footer-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

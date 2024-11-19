@@ -1,0 +1,153 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f8f9fa;
+    color: #333;
+}
+
+header {
+    background-color: #8fcfd1;
+    height: 100px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+header h1 {
+    font-size: 2rem;
+    color: white;
+}
+
+nav {
+    margin: auto;
+    padding: 10px 35px;
+    height: 50px;
+    width: 100%;
+    background-color: #e0f7fa;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-bottom: 2px solid #00796b;
+}
+a{
+    color: #f8f9fa;
+    text-decoration: none;
+}
+nav .search {
+    background-color: white;
+    width: 550px;
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 5px;
+    border-radius: 50px;
+}
+
+nav input {
+    border: none;
+    margin: 5px;
+    flex-grow: 1;
+    padding: 5px;
+}
+
+nav .search button {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+main {
+    background-color: #a1f2f5;
+    background-image: url(background.jpg);
+    text-align: center;
+    height: calc(100vh - 160px);
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    background-repeat: round;
+}
+
+.background-img {
+    background-image: url('background.jpg'); 
+    background-size: cover;
+    background-position: center;
+    width: 100%;
+    height: max-content;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-repeat: no-repeat;
+}
+
+.login-container {
+    margin-top: 69px;
+    max-width: 400px;
+    background-color: #ffffff78;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: static;
+    z-index: 5;
+    justify-content: flex-start;
+}
+
+.login-container h2 {
+    margin-bottom: 20px;
+    color: #00796b;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+label {
+    margin-bottom: 5px;
+    font-weight: bold;
+    text-align: left;
+    width: 100%;
+}
+
+input {
+    margin-bottom: 15px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 100%;
+}
+
+button {
+    padding: 10px 20px;
+    background-color: #00796b;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #004d40;
+}
+
+footer {
+    background-color: #8fcfd1;
+    padding: 18px;
+    text-align: center;
+    color: white;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}

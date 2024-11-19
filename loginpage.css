@@ -1,0 +1,8 @@
+footer{
+    position: static;
+    bottom: 0;
+    background-color: #8fcfd1; /* Match the header color */
+    padding: 20px;
+    text-align: center;
+    color: white;
+}

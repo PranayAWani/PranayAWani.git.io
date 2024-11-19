@@ -1,0 +1,128 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f8f9fa; /* Light grey background */
+    color: #333; /* Dark grey text */
+}
+
+header {
+    background-color: #8fcfd1; /* Light teal */
+    height: 80px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+header h1 {
+    font-size: 2rem;
+    color: white;
+}
+
+nav {
+    margin: auto;
+    padding: 10px 35px;
+    height: 50px;
+    width: 100%;
+    background-color: #e0f7fa; /* Light cyan */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid #00796b; /* Teal border for a bit of accent */
+}
+nav a{
+    color: #00796b;
+    text-decoration: none;
+    cursor: pointer;
+}
+nav .leftcont, nav .rightcont {
+    display: flex;
+    align-items: center;
+}
+
+nav .box {
+    padding: 10px 20px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s ease;
+    color: #00796b; /* Teal text for contrast */
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+nav .box:hover {
+    background-color: #b2dfdb; /* Light teal on hover */
+}
+
+main {
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+}
+
+.about-container {
+    max-width: 800px;
+    background-color: #ffffff; /* White background for content */
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+}
+
+.about-container h2 {
+    margin-bottom: 10px;
+    color: #00796b; /* Teal for headers */
+}
+
+.about-container p {
+    margin-bottom: 20px;
+    line-height: 1.6;
+}
+
+.team {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.team-member {
+    text-align: center;
+    max-width: 200px;
+}
+
+.team-member img {
+    width: 100%;
+    border-radius: 50%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+}
+
+.team-member h3 {
+    margin: 10px 0 5px 0;
+    color: #00796b; /* Teal for headers */
+}
+
+.team-member p {
+    margin-bottom: 10px;
+    color: #666; /* Grey for role description */
+}
+
+footer {
+    background-color: #8fcfd1; /* Match the header color */
+    padding: 20px;
+    text-align: center;
+    color: white;
+}
+
+.footer-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
