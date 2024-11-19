@@ -1,0 +1,136 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    background-color: var(--background-color); 
+    color: var(--text-color); 
+}
+
+.container {
+    display: flex;
+    overflow-x: scroll;
+    padding: 20px;
+    border: 2px solid var(--background-color);
+    border-radius: 10px;
+    background-color: var(--flashcard-background); 
+    max-width: 100%;
+    white-space: nowrap;
+    gap: 15px;
+    scrollbar-width: none; /* For Firefox */
+    height: max-content;
+}
+
+.container::-webkit-scrollbar {
+    display: none; /* For Chrome, Safari, and Opera */
+}
+
+.flashcard {
+    background-image: url('sky.jpeg');
+    background-size: cover;
+    background-position: center;
+    width: 100%;
+    /* max-width: 400px; */
+    margin: 10px 5px;
+    border: 2px solid var(--flashcard-background); 
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: visible;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    height: auto; 
+}
+
+.flashcard:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.flashcard-header, .flashcard-content {
+    color: white; 
+    padding: 10px;
+    width: 350px;
+    text-align: center;
+}
+
+.city-name {
+    font-weight: bolder;
+    font-size: 2rem;
+}
+
+.aqi-title, .aqi-value {
+    font-weight: bolder;
+    font-size: 1.5rem;
+}
+
+.flashcard-image img {
+    width: 100%;
+    max-width: 350px;
+    border-radius: 10px;
+    position: relative;
+    bottom: 0;
+}
+
+/* Media Queries for Responsiveness */
+@media (max-width: 768px) {
+    nav .box {
+        padding: 5px 10px;
+    }
+    .flashcard {
+        width: 90%;
+        margin: 10px auto;
+    }
+    .container {
+        padding: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    header h1 {
+        font-size: 1.5rem;
+    }
+    nav .box {
+        padding: 5px;
+    }
+    .flashcard-header p {
+        padding: 5px;
+        font-weight: bolder; 
+        font-size: xx-large;
+    }
+    .flashcard-content {
+        padding: 5px;
+        font-weight: bolder; 
+        font-size: xx-large;
+    }
+    .flashcard-image img {
+        max-width: 100%;
+    }
+}
+.work-in-progress {
+    margin: 20px auto;
+    max-width: 600px;
+    padding: 20px;
+    background-color: var(--flashcard-background); /* Use variable for background color */
+    color: var(--flashcard-text-color); /* Use variable for text color */
+    border: 2px solid #ccc; /* Light grey border for contrast */
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+}
+
+.work-in-progress h2 {
+    margin-bottom: 10px;
+    color: var(--nav-text-color); /* Use variable for header color */
+}
+
+.work-in-progress p {
+    margin-bottom: 10px;
+    line-height: 1.6;
+}

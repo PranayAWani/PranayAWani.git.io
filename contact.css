@@ -1,3 +1,27 @@
+:root {
+    --background-color: #f8f9fa;
+    --text-color: #333; 
+    --header-background: #8fcfd1; 
+    --nav-background: #e0f7fa; 
+    --nav-text-color: #00796b; 
+    --nav-hover-background: #b2dfdb;
+    --flashcard-background: #ffffff; 
+    --flashcard-text-color: #333; 
+    --footer-background: #8fcfd1; 
+}
+
+[data-theme="dark"] {
+    --background-color: #333; 
+    --text-color: #f8f9fa; 
+    --header-background: #444; 
+    --nav-background: #555; 
+    --nav-text-color: #e0f7fa; 
+    --nav-hover-background: #666;
+    --flashcard-background: #555; 
+    --flashcard-text-color: #f8f9fa; 
+    --footer-background: #444;
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -6,12 +30,12 @@
 
 body {
     font-family: Arial, sans-serif;
-    background-color: #f8f9fa; /* Light grey background */
-    color: #333; /* Dark grey text */
+    background-color: var(--background-color); /* Use variable for background color */
+    color: var(--text-color); /* Use variable for text color */
 }
 
 header {
-    background-color: #8fcfd1; /* Light teal */
+    background-color: var(--header-background); /* Use variable for header background */
     height: 80px;
     width: 100%;
     display: flex;
@@ -22,7 +46,7 @@ header {
 
 header h1 {
     font-size: 2rem;
-    color: white;
+    color: var(--text-color); /* Use variable for text color */
 }
 
 nav {
@@ -30,11 +54,11 @@ nav {
     padding: 10px 35px;
     height: 50px;
     width: 100%;
-    background-color: #e0f7fa; /* Light cyan */
+    background-color: var(--nav-background); /* Use variable for nav background */
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-bottom: 2px solid #00796b; /* Teal border for a bit of accent */
+    border-bottom: 2px solid var(--nav-text-color); /* Use variable for border color */
 }
 
 nav .leftcont, nav .rightcont {
@@ -49,13 +73,13 @@ nav .box {
     align-items: center;
     justify-content: center;
     transition: background-color 0.3s ease;
-    color: #00796b; /* Teal text for contrast */
+    color: var(--nav-text-color); /* Use variable for text color */
     cursor: pointer;
     border-radius: 5px;
 }
 
 nav .box:hover {
-    background-color: #b2dfdb; /* Light teal on hover */
+    background-color: var(--nav-hover-background); /* Use variable for hover background */
 }
 
 nav a {
@@ -71,7 +95,7 @@ main {
 
 .contact-container {
     max-width: 600px;
-    background-color: #ffffff; /* White background for content */
+    background-color: var(--flashcard-background); /* Use variable for content background */
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
@@ -79,7 +103,7 @@ main {
 
 .contact-container h2 {
     margin-bottom: 10px;
-    color: #00796b; /* Teal for headers */
+    color: var(--nav-text-color); /* Use variable for headers */
 }
 
 .contact-container p {
@@ -106,8 +130,8 @@ input, textarea {
 
 button {
     padding: 10px 20px;
-    background-color: #00796b;
-    color: white;
+    background-color: var(--nav-text-color); /* Use variable for button background */
+    color: var(--text-color); /* Use variable for button text color */
     border: none;
     border-radius: 5px;
     cursor: pointer;
@@ -115,18 +139,12 @@ button {
 }
 
 button:hover {
-    background-color: #004d40;
+    background-color: #004d40; /* Darker shade for hover */
 }
 
 footer {
-    background-color: #8fcfd1; /* Match the header color */
+    background-color: var(--footer-background); /* Use variable for footer background */
     padding: 20px;
     text-align: center;
-    color: white;
-}
-
-.footer-content {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    color: var(--text-color); /* Use variable for text color */
 }

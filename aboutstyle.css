@@ -6,60 +6,8 @@
 
 body {
     font-family: Arial, sans-serif;
-    background-color: #f8f9fa; /* Light grey background */
-    color: #333; /* Dark grey text */
-}
-
-header {
-    background-color: #8fcfd1; /* Light teal */
-    height: 80px;
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-}
-
-header h1 {
-    font-size: 2rem;
-    color: white;
-}
-
-nav {
-    margin: auto;
-    padding: 10px 35px;
-    height: 50px;
-    width: 100%;
-    background-color: #e0f7fa; /* Light cyan */
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-bottom: 2px solid #00796b; /* Teal border for a bit of accent */
-}
-nav a{
-    color: #00796b;
-    text-decoration: none;
-    cursor: pointer;
-}
-nav .leftcont, nav .rightcont {
-    display: flex;
-    align-items: center;
-}
-
-nav .box {
-    padding: 10px 20px;
-    text-align: center;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: background-color 0.3s ease;
-    color: #00796b; /* Teal text for contrast */
-    cursor: pointer;
-    border-radius: 5px;
-}
-
-nav .box:hover {
-    background-color: #b2dfdb; /* Light teal on hover */
+    background-color: var(--background-color); /* Use variable for background color */
+    color: var(--text-color); /* Use variable for text color */
 }
 
 main {
@@ -70,7 +18,7 @@ main {
 
 .about-container {
     max-width: 800px;
-    background-color: #ffffff; /* White background for content */
+    background-color: var(--flashcard-background); /* Use variable for content background */
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
@@ -78,7 +26,7 @@ main {
 
 .about-container h2 {
     margin-bottom: 10px;
-    color: #00796b; /* Teal for headers */
+    color: var(--nav-text-color); /* Use variable for headers */
 }
 
 .about-container p {
@@ -106,23 +54,10 @@ main {
 
 .team-member h3 {
     margin: 10px 0 5px 0;
-    color: #00796b; /* Teal for headers */
+    color: var(--nav-text-color); /* Use variable for headers */
 }
 
 .team-member p {
     margin-bottom: 10px;
     color: #666; /* Grey for role description */
-}
-
-footer {
-    background-color: #8fcfd1; /* Match the header color */
-    padding: 20px;
-    text-align: center;
-    color: white;
-}
-
-.footer-content {
-    display: flex;
-    justify-content: center;
-    align-items: center;
 }
