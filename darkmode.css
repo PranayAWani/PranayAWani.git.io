@@ -1,0 +1,119 @@
+:root {
+    --background-color: #f8f9fa;
+    --text-color: #333; 
+    --header-background: #8fcfd1; 
+    --nav-background: #e0f7fa; 
+    --nav-text-color: #00796b; 
+    --nav-hover-background: #b2dfdb;
+    --flashcard-background: #ffffff; 
+    --flashcard-text-color: #333; 
+    --footer-background: #8fcfd1; 
+}
+
+[data-theme="dark"] {
+    --background-color: #333; 
+    --text-color: #f8f9fa; 
+    --header-background: #444; 
+    --nav-background: #555; 
+    --nav-text-color: #e0f7fa; 
+    --nav-hover-background: #666;
+    --flashcard-background: #555; 
+    --flashcard-text-color: #f8f9fa; 
+    --footer-background: #444;
+}
+
+
+header {
+    background-color: var(--header-background); 
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between; 
+    padding: 0 20px;
+    text-align: center;
+}
+
+header h1 {
+    font-size: 2rem;
+    color: var(--text-color); 
+}
+
+.header-buttons { 
+    display: flex;
+    gap: 10px; 
+    
+} 
+
+header button { 
+    background-color: var(--nav-background);
+    color: var(--nav-text-color); 
+    border: none; 
+    padding: 10px 20px; 
+    cursor: pointer; 
+    border-radius: 5px; 
+}
+
+nav {
+    margin: auto;
+    padding: 10px 35px;
+    height: 50px;
+    width: 100%;
+    background-color: var(--nav-background); 
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid var(--nav-text-color); 
+}
+
+a {
+    color: var(--nav-text-color); 
+    text-decoration: none;
+    cursor: pointer;
+}
+
+nav .leftcont, nav .rightcont {
+    display: flex;
+    align-items: center;
+}
+
+nav .box {
+    padding: 10px 20px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s ease;
+    color: var(--nav-text-color);
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+nav .box:hover {
+    background-color: var(--nav-hover-background);/* Light teal on hover */
+}
+
+nav .search-container {
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+}
+
+nav #city-search {
+    width: 50%;
+    padding: 0.5rem;
+    border: 1px solid var(--text-color);
+    border-radius: 5px;
+    font-size: 1rem;
+    background-color: var(--background-color);
+    color: var(--text-color);
+}
+
+footer {
+    background-color: var(--footer-background); 
+    padding: 18px;
+    text-align: center;
+    color: var(--text-color); 
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}

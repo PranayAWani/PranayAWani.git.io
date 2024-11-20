@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <link rel="stylesheet" href="home.css">
+    <link rel="stylesheet" href="darkmode.css"> 
+</head>
+<body>
+    <header>
+        <h1>Hardware Express</h1>
+        <div class="header-buttons">
+            <button id="toggle-mode">Light Mode</button>
+            <button id="login-button">Login</button>
+        </div>
+    </header>
+    <main>
+        <!-- <img src="background.jpg" alt=""> -->
+        <div class="login-container">
+            <h2>Login</h2>
+                <div class="form">
+                    <form action="/submit_form" method="post">
+                            <!-- <label for="username">Username:</label> -->
+                            <input type="text" id="username" name="username"  placeholder="Enter Username" required>
+                            <!-- <label for="password">Password:</label> -->
+                            <input type="password" id="password" placeholder="Enter Password" name="password" required>            
+                            <!-- <label for="designation" id="designation">Designation</label>           -->
+                            <input type="text" placeholder="Enter User Role" required>
+                            <button type="submit"><a href="index.html">Login</a></button>        
+                    </form>
+                </div>
+        </div>
+    </main>
+    <footer>
+        <div class="footer-content">
+            <p>&copy; 2024 AQI Index Monitor. All rights reserved.</p>
+        </div>
+    </footer>
+    <script src="darkmode.js"></script>
+</body>
+</html>

@@ -1,0 +1,163 @@
+:root {
+    --background-color: #f8f9fa;
+    --text-color: #333;
+    --header-background: #8fcfd1;
+    --nav-background: #e0f7fa;
+    --nav-text-color: #00796b;
+    --nav-hover-background: #b2dfdb;
+    --content-background: #ffffff;
+    --header-text-color: #ffffff;
+    --footer-background: #8fcfd1;
+}
+
+[data-theme="dark"] {
+    --background-color: #333;
+    --text-color: #f8f9fa;
+    --header-background: #444;
+    --nav-background: #555;
+    --nav-text-color: #e0f7fa;
+    --nav-hover-background: #666;
+    --content-background: #555;
+    --header-text-color: #f8f9fa;
+    --footer-background: #444;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: var(--background-color); /* Use variable for background color */
+    color: var(--text-color); /* Use variable for text color */
+}
+
+header {
+    background-color: var(--header-background); /* Use variable for header background */
+    height: 80px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+header h1 {
+    font-size: 2rem;
+    color: var(--header-text-color); /* Use variable for header text color */
+}
+
+nav {
+    margin: auto;
+    padding: 10px 35px;
+    height: 50px;
+    width: 100%;
+    background-color: var(--nav-background); /* Use variable for nav background */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid var(--nav-text-color); /* Use variable for border color */
+}
+
+nav .leftcont, nav .rightcont {
+    display: flex;
+    align-items: center;
+}
+
+nav .box {
+    padding: 10px 20px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s ease;
+    color: var(--nav-text-color); /* Use variable for text color */
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+nav .box:hover {
+    background-color: var(--nav-hover-background); /* Use variable for hover background */
+}
+
+nav a {
+    text-decoration: none;
+    color: inherit; /* Inherit text color */
+}
+
+main {
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+    background-color: var(--background-color); /* Use variable for main background */
+}
+
+.project-details-container {
+    max-width: 800px;
+    background-color: var(--content-background); /* Use variable for content background */
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+}
+
+.project-details-container h2 {
+    margin-bottom: 10px;
+    color: var(--nav-text-color); /* Use variable for headers */
+}
+
+.project-details-container p {
+    margin-bottom: 20px;
+    line-height: 1.6;
+}
+
+.project-details-container ul {
+    margin-bottom: 20px;
+    padding-left: 20px;
+}
+
+.project-details-container li {
+    margin-bottom: 10px;
+}
+
+.team {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.team-member {
+    text-align: center;
+    max-width: 200px;
+}
+
+.team-member img {
+    width: 100%;
+    border-radius: 50%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+}
+
+.team-member h3 {
+    margin: 10px 0 5px 0;
+    color: var(--nav-text-color); /* Use variable for headers */
+}
+
+.team-member p {
+    margin-bottom: 10px;
+    color: #666; /* Grey for role description */
+}
+
+footer {
+    background-color: var(--footer-background); /* Use variable for footer background */
+    padding: 20px;
+    text-align: center;
+    color: var(--header-text-color); /* Use variable for text color */
+}
+
+.footer-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

@@ -1,0 +1,150 @@
+:root {
+    --background-color: #f8f9fa;
+    --text-color: #333; 
+    --header-background: #8fcfd1; 
+    --nav-background: #e0f7fa; 
+    --nav-text-color: #00796b; 
+    --nav-hover-background: #b2dfdb;
+    --flashcard-background: #ffffff; 
+    --flashcard-text-color: #333; 
+    --footer-background: #8fcfd1; 
+}
+
+[data-theme="dark"] {
+    --background-color: #333; 
+    --text-color: #f8f9fa; 
+    --header-background: #444; 
+    --nav-background: #555; 
+    --nav-text-color: #e0f7fa; 
+    --nav-hover-background: #666;
+    --flashcard-background: #555; 
+    --flashcard-text-color: #f8f9fa; 
+    --footer-background: #444;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: var(--background-color); /* Use variable for background color */
+    color: var(--text-color); /* Use variable for text color */
+}
+
+header {
+    background-color: var(--header-background); /* Use variable for header background */
+    height: 80px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+header h1 {
+    font-size: 2rem;
+    color: var(--text-color); /* Use variable for text color */
+}
+
+nav {
+    margin: auto;
+    padding: 10px 35px;
+    height: 50px;
+    width: 100%;
+    background-color: var(--nav-background); /* Use variable for nav background */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid var(--nav-text-color); /* Use variable for border color */
+}
+
+nav .leftcont, nav .rightcont {
+    display: flex;
+    align-items: center;
+}
+
+nav .box {
+    padding: 10px 20px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s ease;
+    color: var(--nav-text-color); /* Use variable for text color */
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+nav .box:hover {
+    background-color: var(--nav-hover-background); /* Use variable for hover background */
+}
+
+nav a {
+    text-decoration: none;
+    color: inherit; /* Inherit text color */
+}
+
+main {
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+}
+
+.contact-container {
+    max-width: 600px;
+    background-color: var(--flashcard-background); /* Use variable for content background */
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+}
+
+.contact-container h2 {
+    margin-bottom: 10px;
+    color: var(--nav-text-color); /* Use variable for headers */
+}
+
+.contact-container p {
+    margin-bottom: 20px;
+    line-height: 1.6;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+input, textarea {
+    margin-bottom: 15px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+button {
+    padding: 10px 20px;
+    background-color: var(--nav-text-color); /* Use variable for button background */
+    color: var(--text-color); /* Use variable for button text color */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #004d40; /* Darker shade for hover */
+}
+
+footer {
+    background-color: var(--footer-background); /* Use variable for footer background */
+    padding: 20px;
+    text-align: center;
+    color: var(--text-color); /* Use variable for text color */
+}
