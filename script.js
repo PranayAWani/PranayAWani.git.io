@@ -28,7 +28,7 @@ const cities = [
     { name: "Jalgaon", lat: 21.0077, long: 75.5626 },
     { name: "Belagum", lat: 15.8497, long: 74.4977 }
 ];
-const apiKey = "2e5d276d90204433a87172746242211";
+// const apiKey = "2e5d276d90204433a87172746242211";
 const baseUrl = "http://api.weatherapi.com/v1/current.json";
 
 function fetchAQIData() {
@@ -89,7 +89,7 @@ const express = require('express');
 const fetch = require('node-fetch');
 const app = express();
 const PORT = 3000;
-const apiKey = "2e5d276d90204433a87172746242211";
+// const apiKey = "2e5d276d90204433a87172746242211";
 const weatherApiBaseUrl = "http://api.weatherapi.com/v1/current.json";
 
 app.get('/api/aqi', async (req, res) => {

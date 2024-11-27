@@ -22,7 +22,13 @@
     --footer-background: #444;
 }
 
+* {
+    margin: 0; 
+    padding: 0; 
+    box-sizing: border-box; 
+}
 
+/* Header styling */
 header {
     background-color: var(--header-background); 
     height: 80px;
@@ -31,6 +37,7 @@ header {
     justify-content: space-between; 
     padding: 0 20px;
     text-align: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 header h1 {
@@ -41,8 +48,7 @@ header h1 {
 .header-buttons { 
     display: flex;
     gap: 10px; 
-    
-} 
+}
 
 header button { 
     background-color: var(--nav-background);
@@ -51,6 +57,26 @@ header button {
     padding: 10px 20px; 
     cursor: pointer; 
     border-radius: 5px; 
+}
+
+/* Company name and slogan styling */
+.company-info {
+    display: flex; 
+    flex-direction: column; 
+    align-items: flex-start;
+    justify-content: space-around;
+}
+
+.company-info .company-name {
+    font-size: 1em; 
+    color: var(--text-color); 
+    font-weight: bold;
+}
+
+.company-info .slogan {
+    font-size: 0.5em; 
+    color: var(--text-color); 
+    font-style: italic;
 }
 
 nav {
@@ -89,13 +115,20 @@ nav .box {
 }
 
 nav .box:hover {
-    background-color: var(--nav-hover-background);/* Light teal on hover */
+    background-color: var(--nav-hover-background);
 }
 
 nav .search-container {
     flex-grow: 1;
     display: flex;
     justify-content: center;
+}
+
+.header-clock {
+    font-size: 1.2em;
+    color: #333;
+    margin: 10px 20px;
+    font-weight: bold;
 }
 
 nav #city-search {
