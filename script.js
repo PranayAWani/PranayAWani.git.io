@@ -1,3 +1,4 @@
+// Frontend code
 // Select the container element
 const container = document.querySelector('.container');
 
@@ -27,7 +28,6 @@ const cities = [
     { name: "Jalgaon", lat: 21.0077, long: 75.5626 },
     { name: "Belagum", lat: 15.8497, long: 74.4977 }
 ];
-
 const apiKey = "2e5d276d90204433a87172746242211";
 const baseUrl = "http://api.weatherapi.com/v1/current.json";
 
@@ -53,12 +53,43 @@ function fetchAQIData() {
     });
 }
 
+// Call the function on page load and every minute
+document.addEventListener("DOMContentLoaded", () => {
+    fetchAQIData();
+    setInterval(fetchAQIData, 60000); // 60000ms = 1 minute
+});
+
+function updateAQI(cityName, aqiValue) {
+    const flashcards = document.querySelectorAll(".flashcard");
+    flashcards.forEach(card => {
+        const city = card.querySelector(".city-name").textContent.trim();
+        console.log(`Checking city: ${city}`); // Debugging line
+        if (city.toUpperCase() === cityName.toUpperCase()) {
+            console.log(`Updating AQI for ${city}: ${aqiValue}`); // Debugging line
+            const aqiElement = card.querySelector(".aqi-value");
+            aqiElement.textContent = aqiValue;
+        }
+    });
+}
+
+document.getElementById('login-button').addEventListener('click', () => {
+    const loginButton = document.getElementById('login-button');
+    if (loginButton.textContent === 'Login') {
+        loginButton.textContent = 'Logout';
+        alert('Logged in!');
+    } else {
+        loginButton.textContent = 'Login';
+        alert('Logged out!');
+        window.location.href = 'home.html';
+    }
+});
+
+// Backend code
 const express = require('express');
 const fetch = require('node-fetch');
 const app = express();
 const PORT = 3000;
-
-const apiKey = "YOUR_API_KEY";
+const apiKey = "2e5d276d90204433a87172746242211";
 const weatherApiBaseUrl = "http://api.weatherapi.com/v1/current.json";
 
 app.get('/api/aqi', async (req, res) => {
@@ -76,34 +107,4 @@ app.get('/api/aqi', async (req, res) => {
 
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
-});
-
-function updateAQI(cityName, aqiValue) {
-    const flashcards = document.querySelectorAll(".flashcard");
-    flashcards.forEach(card => {
-        const city = card.querySelector(".city-name").textContent.trim();
-        console.log(`Checking city: ${city}`); // Debugging line
-        if (city.toUpperCase() === cityName.toUpperCase()) {
-            console.log(`Updating AQI for ${city}: ${aqiValue}`); // Debugging line
-            const aqiElement = card.querySelector(".aqi-value");
-            aqiElement.textContent = aqiValue;
-        }
-    });
-}
-
-
-// Call the function on page load
-document.addEventListener("DOMContentLoaded", fetchAQIData);
-
-
-document.getElementById('login-button').addEventListener('click', () => {
-    const loginButton = document.getElementById('login-button');
-    if (loginButton.textContent === 'Login') {
-        loginButton.textContent = 'Logout';
-        alert('Logged in!');
-    } else {
-        loginButton.textContent = 'Login';
-        alert('Logged out!');
-        window.location.href = 'home.html';
-    }
 });
