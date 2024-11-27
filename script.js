@@ -53,6 +53,31 @@ function fetchAQIData() {
     });
 }
 
+const express = require('express');
+const fetch = require('node-fetch');
+const app = express();
+const PORT = 3000;
+
+const apiKey = "YOUR_API_KEY";
+const weatherApiBaseUrl = "http://api.weatherapi.com/v1/current.json";
+
+app.get('/api/aqi', async (req, res) => {
+    const { lat, long } = req.query;
+    const url = `${weatherApiBaseUrl}?key=${apiKey}&q=${lat},${long}&aqi=yes`;
+    try {
+        const response = await fetch(url);
+        const data = await response.json();
+        res.json(data);
+    } catch (error) {
+        console.error('Error fetching AQI data:', error);
+        res.status(500).json({ error: 'Failed to fetch AQI data' });
+    }
+});
+
+app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
+});
+
 function updateAQI(cityName, aqiValue) {
     const flashcards = document.querySelectorAll(".flashcard");
     flashcards.forEach(card => {
