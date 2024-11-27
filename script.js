@@ -57,12 +57,15 @@ function updateAQI(cityName, aqiValue) {
     const flashcards = document.querySelectorAll(".flashcard");
     flashcards.forEach(card => {
         const city = card.querySelector(".city-name").textContent.trim();
+        console.log(`Checking city: ${city}`); // Debugging line
         if (city.toUpperCase() === cityName.toUpperCase()) {
+            console.log(`Updating AQI for ${city}: ${aqiValue}`); // Debugging line
             const aqiElement = card.querySelector(".aqi-value");
             aqiElement.textContent = aqiValue;
         }
     });
 }
+
 
 // Call the function on page load
 document.addEventListener("DOMContentLoaded", fetchAQIData);

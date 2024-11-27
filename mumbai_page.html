@@ -51,10 +51,21 @@
         </div>
         <div class="middle">
             <div class="title"><h3>7 Days Forecast</h3></div>
-            <div id="forecast-container" class="forecast-container">
-                <!-- Forecast details dynamically generated -->
+            <div class="forecast-container">
+                <div class="forecast-box">
+                    <small>Day 1</small>
+                    <div class="right">
+                        <h2>AQI</h2>
+                        <div class="gauge">
+                            <div class="gauge-circle">
+                                <div class="gauge-fill" style="transform: rotate(100deg);"></div>
+                                <div class="gauge-cover">100</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="left"><h3>100</h3></div>
+                </div>
             </div>
-        </div>
         <div class="last">
             <div class="title"><h3>Detailed Analysis</h3></div>
             <div class="graph-grid">
@@ -81,42 +92,37 @@
     <script src="darkmode.js"></script>
     <script>
         async function fetchAQIData() {
+            const apiKey = "2e5d276d90204433a87172746242211";
+            const lat = 19.076; // Mumbai latitude
+            const long = 72.8777; // Mumbai longitude
+            const apiUrl = `http://api.weatherapi.com/v1/current.json?key=${apiKey}&q=${lat},${long}&aqi=yes`;
+    
             try {
-                const response = await fetch('http://api.weatherapi.com/v1/current.json'); // Replace with actual API URL
+                const response = await fetch(apiUrl);
+                if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
                 const data = await response.json();
-
+    
                 // Update location name
-                document.getElementById('lat: 19.076, long: 72.8777').textContent = data.location;
-
+                const locationElement = document.getElementById('location-name');
+                locationElement.textContent = `${data.location.name}, ${data.location.region}`;
+    
                 // Update AQI gauge
-                const aqi = data.aqi;
-                document.getElementById('gauge-fill').style.transform = `rotate(${(aqi / 500) * 180}deg)`;
-                document.getElementById('gauge-cover').textContent = aqi;
-
-                // Update forecast
-                const forecastContainer = document.getElementById('forecast-container');
-                forecastContainer.innerHTML = '';
-                data.forecast.forEach(day => {
-                    const forecastBox = document.createElement('div');
-                    forecastBox.classList.add('forecast-box');
-                    forecastBox.innerHTML = `
-                        <small>${day.date}</small>
-                        <h4>${day.aqi}</h4>
-                        <p>${day.condition}</p>
-                    `;
-                    forecastContainer.appendChild(forecastBox);
-                });
-
-                // Update graphs
-                createGraph('graph1', 'Carbon Monoxide AQI', data.graphs.carbonMonoxide);
-                createGraph('graph2', 'Carbon Dioxide AQI', data.graphs.carbonDioxide);
-                createGraph('graph3', 'Benzene AQI', data.graphs.benzene);
-
+                const aqi = data.current.air_quality["us-epa-index"];
+                const gaugeFill = document.getElementById('gauge-fill');
+                const gaugeCover = document.getElementById('gauge-cover');
+                const rotation = Math.min((aqi / 500) * 180, 180); // Cap at 180 degrees
+                gaugeFill.style.transform = `rotate(${rotation}deg)`;
+                gaugeCover.textContent = aqi;
+    
+                // TODO: Add logic for 7-day forecast if available in API response
+    
             } catch (error) {
-                console.error('Error fetching AQI data:', error);
+                console.error("Error fetching AQI data:", error);
+                const locationElement = document.getElementById('location-name');
+                locationElement.textContent = "Error loading data";
             }
         }
-
+    
         function createGraph(canvasId, label, data) {
             const ctx = document.getElementById(canvasId).getContext('2d');
             new Chart(ctx, {
@@ -139,9 +145,10 @@
                 }
             });
         }
-
+    
         // Fetch and display AQI data on page load
         fetchAQIData();
     </script>
+    
 </body>
 </html>
