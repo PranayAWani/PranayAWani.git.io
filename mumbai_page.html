@@ -7,7 +7,6 @@
     <link rel="stylesheet" href="mumbai_page.css">
     <link rel="stylesheet" href="darkmode.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.2/papaparse.min.js"></script>
 </head>
 <body>
     <div class="image"></div>
@@ -20,30 +19,30 @@
     </header>
     <nav>
         <div class="leftcont">
-            <div class="box box1"><a href="index.html">Home</a></div>
-            <div class="box box2"><a href="solution.html">Solutions</a></div>
-            <div class="box box3"><a href="contact.html">Contact</a></div>
-            <div class="box box4"><a href="project_details.html">Project Details</a></div>
-            <div class="box box5"><a href="aboutus.html">About Us</a></div>
+            <div class="box"><a href="index.html">Home</a></div>
+            <div class="box"><a href="solution.html">Solutions</a></div>
+            <div class="box"><a href="contact.html">Contact</a></div>
+            <div class="box"><a href="project_details.html">Project Details</a></div>
+            <div class="box"><a href="aboutus.html">About Us</a></div>
         </div>
         <div class="rightcont">
-            <div class="box box1"><a href="faq.html">FAQs</a></div>
-            <div class="box box2"><a href="support.html">Support</a></div>
+            <div class="box"><a href="faq.html">FAQs</a></div>
+            <div class="box"><a href="support.html">Support</a></div>
         </div>
     </nav>
     <main>
         <div class="top">
             <div class="info-container">
                 <div class="location">
-                    <h1>Mumbai, Maharashtra</h1>
+                    <h1 id="location-name">Loading...</h1>
                 </div>
                 <div class="aqicontainer">
                     <div class="aqi">
                         <h1>AQI</h1>
                         <div class="gauge">
                             <div class="gauge-circle">
-                                <div class="gauge-fill" style="transform: rotate(112deg);"></div>
-                                <div class="gauge-cover">112</div>
+                                <div id="gauge-fill" class="gauge-fill"></div>
+                                <div id="gauge-cover" class="gauge-cover">...</div>
                             </div>
                         </div>
                     </div>
@@ -52,8 +51,8 @@
         </div>
         <div class="middle">
             <div class="title"><h3>7 Days Forecast</h3></div>
-            <div class="forecast-container">
-                <!-- Forecast details here -->
+            <div id="forecast-container" class="forecast-container">
+                <!-- Forecast details dynamically generated -->
             </div>
         </div>
         <div class="last">
@@ -61,19 +60,15 @@
             <div class="graph-grid">
                 <div class="graphbox">
                     <div class="graphtitle"><h6>Carbon Monoxide</h6></div>
-                    <canvas class="graph" id="graph1"></canvas>
-                </div>
-                <div class="graphbox">
-                    <div class="graphtitle"><h6>Carbon Monoxide</h6></div>
-                    <canvas class="graph" id="graph2"></canvas>
+                    <canvas id="graph1"></canvas>
                 </div>
                 <div class="graphbox">
                     <div class="graphtitle"><h6>Carbon Dioxide</h6></div>
-                    <canvas class="graph" id="graph3"></canvas>
+                    <canvas id="graph2"></canvas>
                 </div>
                 <div class="graphbox">
                     <div class="graphtitle"><h6>Benzene</h6></div>
-                    <canvas class="graph" id="graph4"></canvas>
+                    <canvas id="graph3"></canvas>
                 </div>
             </div>
         </div>
@@ -83,68 +78,54 @@
             <p>&copy; 2024 AQI Index Monitor. All rights reserved.</p>
         </div>
     </footer>
-    
-    <!-- File input for CSV -->
-    <input type="file" id="csv-file-input" accept=".csv" />
-
     <script src="darkmode.js"></script>
-
     <script>
-        // Handle CSV file upload
-        document.getElementById('bkcco.csv').addEventListener('change', function(e) {
-            Papa.parse(e.target.files[0], {
-                header: true,  // Assuming the first row contains headers
-                dynamicTyping: true,
-                complete: function(results) {
-                    console.log(results);  // Check parsed results
-                    // Call the function to generate the graph
-                    createGraph(results.data);
-                },
-                error: function(error) {
-                    alert("Error parsing CSV file: " + error.message);
-                }
-            });
-        });
+        async function fetchAQIData() {
+            try {
+                const response = await fetch('http://api.weatherapi.com/v1/current.json'); // Replace with actual API URL
+                const data = await response.json();
 
-        // Function to create a graph based on parsed CSV data
-        function createGraph(parsedData) {
-            const labels = parsedData.map(row => row['Day']);  // Assuming 'Day' column in CSV
-            const data = parsedData.map(row => row['AQI']);    // Assuming 'AQI' column in CSV
+                // Update location name
+                document.getElementById('lat: 19.076, long: 72.8777').textContent = data.location;
 
-            const ctx1 = document.getElementById('graph1').getContext('2d');
-            const ctx2 = document.getElementById('graph2').getContext('2d');
-            const ctx3 = document.getElementById('graph3').getContext('2d');
-            const ctx4 = document.getElementById('graph4').getContext('2d');
+                // Update AQI gauge
+                const aqi = data.aqi;
+                document.getElementById('gauge-fill').style.transform = `rotate(${(aqi / 500) * 180}deg)`;
+                document.getElementById('gauge-cover').textContent = aqi;
 
-            // Create graph for graph1 (Carbon Monoxide)
-            new Chart(ctx1, {
+                // Update forecast
+                const forecastContainer = document.getElementById('forecast-container');
+                forecastContainer.innerHTML = '';
+                data.forecast.forEach(day => {
+                    const forecastBox = document.createElement('div');
+                    forecastBox.classList.add('forecast-box');
+                    forecastBox.innerHTML = `
+                        <small>${day.date}</small>
+                        <h4>${day.aqi}</h4>
+                        <p>${day.condition}</p>
+                    `;
+                    forecastContainer.appendChild(forecastBox);
+                });
+
+                // Update graphs
+                createGraph('graph1', 'Carbon Monoxide AQI', data.graphs.carbonMonoxide);
+                createGraph('graph2', 'Carbon Dioxide AQI', data.graphs.carbonDioxide);
+                createGraph('graph3', 'Benzene AQI', data.graphs.benzene);
+
+            } catch (error) {
+                console.error('Error fetching AQI data:', error);
+            }
+        }
+
+        function createGraph(canvasId, label, data) {
+            const ctx = document.getElementById(canvasId).getContext('2d');
+            new Chart(ctx, {
                 type: 'line',
                 data: {
-                    labels: labels,
+                    labels: data.labels,
                     datasets: [{
-                        label: 'Carbon Monoxide AQI',
-                        data: data,
-                        borderColor: 'rgba(255, 99, 132, 1)',
-                        fill: false
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    scales: {
-                        x: { display: true },
-                        y: { display: true }
-                    }
-                }
-            });
-
-            // Create graph for graph2 (Carbon Monoxide) - same data for example
-            new Chart(ctx2, {
-                type: 'line',
-                data: {
-                    labels: labels,
-                    datasets: [{
-                        label: 'Carbon Monoxide AQI',
-                        data: data,
+                        label: label,
+                        data: data.values,
                         borderColor: 'rgba(75, 192, 192, 1)',
                         fill: false
                     }]
@@ -157,49 +138,10 @@
                     }
                 }
             });
-
-            // Create graph for graph3 (Carbon Dioxide) - same data for example
-            new Chart(ctx3, {
-                type: 'line',
-                data: {
-                    labels: labels,
-                    datasets: [{
-                        label: 'Carbon Dioxide AQI',
-                        data: data,
-                        borderColor: 'rgba(54, 162, 235, 1)',
-                        fill: false
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    scales: {
-                        x: { display: true },
-                        y: { display: true }
-                    }
-                }
-            });
-
-            // Create graph for graph4 (Benzene) - same data for example
-            new Chart(ctx4, {
-                type: 'line',
-                data: {
-                    labels: labels,
-                    datasets: [{
-                        label: 'Benzene AQI',
-                        data: data,
-                        borderColor: 'rgba(153, 102, 255, 1)',
-                        fill: false
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    scales: {
-                        x: { display: true },
-                        y: { display: true }
-                    }
-                }
-            });
         }
+
+        // Fetch and display AQI data on page load
+        fetchAQIData();
     </script>
 </body>
 </html>
