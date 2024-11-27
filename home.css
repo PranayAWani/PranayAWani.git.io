@@ -5,9 +5,12 @@
     --nav-background: #e0f7fa; 
     --nav-text-color: #00796b; 
     --nav-hover-background: #b2dfdb;
+    --button-background: var(--nav-background);
+    --button-hover-background: #004d40; 
     --flashcard-background: #ffffff; 
     --flashcard-text-color: #333; 
     --footer-background: #8fcfd1; 
+    --input-border-color: #ccc;
 }
 
 [data-theme="dark"] {
@@ -15,11 +18,14 @@
     --text-color: #f8f9fa; 
     --header-background: #444; 
     --nav-background: #555; 
-    --nav-text-color: #e0f7fa; 
+    --nav-text-color: #f8f9fa; 
     --nav-hover-background: #666;
+    --button-background: var(--nav-background);
+    --button-hover-background: #222; 
     --flashcard-background: #555; 
     --flashcard-text-color: #f8f9fa; 
     --footer-background: #444;
+    --input-border-color: #777;
 }
 
 * {
@@ -30,12 +36,12 @@
 
 body {
     font-family: Arial, sans-serif;
-    background-color: var(--background-color); /* Use variable for background color */
-    color: var(--text-color); /* Use variable for text color */
+    background-color: var(--background-color);
+    color: var(--text-color);
 }
 
 header {
-    background-color: var(--header-background); /* Use variable for header background */
+    background-color: var(--header-background);
     height: 100px;
     width: 100%;
     display: flex;
@@ -46,7 +52,7 @@ header {
 
 header h1 {
     font-size: 2rem;
-    color: var(--text-color); /* Use variable for text color */
+    color: var(--text-color);
 }
 
 nav {
@@ -54,11 +60,11 @@ nav {
     padding: 10px 35px;
     height: 50px;
     width: 100%;
-    background-color: var(--nav-background); /* Use variable for nav background */
+    background-color: var(--nav-background);
     display: flex;
     justify-content: center;
     align-items: center;
-    border-bottom: 2px solid var(--nav-text-color); /* Use variable for border color */
+    border-bottom: 2px solid var(--nav-text-color);
 }
 
 nav .leftcont, nav .rightcont {
@@ -73,18 +79,18 @@ nav .box {
     align-items: center;
     justify-content: center;
     transition: background-color 0.3s ease;
-    color: var(--nav-text-color); /* Use variable for text color */
+    color: var(--nav-text-color);
     cursor: pointer;
     border-radius: 5px;
 }
 
 nav .box:hover {
-    background-color: var(--nav-hover-background); /* Use variable for hover background */
+    background-color: var(--nav-hover-background);
 }
 
 nav a {
     text-decoration: none;
-    color: inherit; /* Inherit text color */
+    color: inherit;
 }
 
 main {
@@ -127,7 +133,7 @@ main {
 
 .login-container h2 {
     margin-bottom: 20px;
-    color: var(--nav-text-color); /* Use variable for headers */
+    color: var(--text-color);
 }
 
 .form {
@@ -146,15 +152,15 @@ label {
 input {
     margin-bottom: 15px;
     padding: 10px;
-    border: 1px solid #ccc;
+    border: 1px solid var(--input-border-color);
     border-radius: 5px;
     width: 100%;
 }
 
 button {
     padding: 10px 20px;
-    background-color: var(--nav-text-color); /* Use variable for button background */
-    color: var(--text-color); /* Use variable for button text color */
+    background-color: var(--button-background);
+    color: white;
     border: none;
     border-radius: 5px;
     cursor: pointer;
@@ -162,14 +168,14 @@ button {
 }
 
 button:hover {
-    background-color: #004d40; /* Darker shade for hover */
+    background-color: var(--button-hover-background);
 }
 
 footer {
-    background-color: var(--footer-background); /* Use variable for footer background */
+    background-color: var(--footer-background);
     padding: 18px;
     text-align: center;
-    color: var(--text-color); /* Use variable for text color */
+    color: var(--text-color);
     position: fixed;
     bottom: 0;
     width: 100%;

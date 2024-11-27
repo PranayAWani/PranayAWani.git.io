@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="mumbai_page.css">
     <link rel="stylesheet" href="darkmode.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.2/papaparse.min.js"></script>
 </head>
 <body>
     <div class="image"></div>
@@ -52,97 +53,7 @@
         <div class="middle">
             <div class="title"><h3>7 Days Forecast</h3></div>
             <div class="forecast-container">
-                <div class="forecast-box">
-                    <small>Day 1</small>
-                    <div class="right">
-                        <h2>AQI</h2>
-                        <div class="gauge">
-                            <div class="gauge-circle">
-                                <div class="gauge-fill" style="transform: rotate(100deg);"></div>
-                                <div class="gauge-cover">100</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="left"><h3>100</h3></div>
-                </div>
-                <div class="forecast-box">
-                    <small>Day 2</small>
-                    <div class="right">
-                        <h2>AQI</h2>
-                        <div class="gauge">
-                            <div class="gauge-circle">
-                                <div class="gauge-fill" style="transform: rotate(120deg);"></div>
-                                <div class="gauge-cover">120</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="left"><h3>120</h3></div>
-                </div>
-                <div class="forecast-box">
-                    <small>Day 3</small>
-                    <div class="right">
-                        <h2>AQI</h2>
-                        <div class="gauge">
-                            <div class="gauge-circle">
-                                <div class="gauge-fill" style="transform: rotate(110deg);"></div>
-                                <div class="gauge-cover">110</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="left"><h3>110</h3></div>
-                </div>
-                <div class="forecast-box">
-                    <small>Day 4</small>
-                    <div class="right">
-                        <h2>AQI</h2>
-                        <div class="gauge">
-                            <div class="gauge-circle">
-                                <div class="gauge-fill" style="transform: rotate(90deg);"></div>
-                                <div class="gauge-cover">90</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="left"><h3>90</h3></div>
-                </div>
-                <div class="forecast-box">
-                    <small>Day 5</small>
-                    <div class="right">
-                        <h2>AQI</h2>
-                        <div class="gauge">
-                            <div class="gauge-circle">
-                                <div class="gauge-fill" style="transform: rotate(95deg);"></div>
-                                <div class="gauge-cover">95</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="left"><h3>95</h3></div>
-                </div>
-                <div class="forecast-box">
-                    <small>Day 6</small>
-                    <div class="right">
-                        <h2>AQI</h2>
-                        <div class="gauge">
-                            <div class="gauge-circle">
-                                <div class="gauge-fill" style="transform: rotate(105deg);"></div>
-                                <div class="gauge-cover">105</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="left"><h3>105</h3></div>
-                </div>
-                <div class="forecast-box">
-                    <small>Day 7</small>
-                    <div class="right">
-                        <h2>AQI</h2>
-                        <div class="gauge">
-                            <div class="gauge-circle">
-                                <div class="gauge-fill" style="transform: rotate(100deg);"></div>
-                                <div class="gauge-cover">100</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="left"><h3>100</h3></div>
-                </div>
+                <!-- Forecast details here -->
             </div>
         </div>
         <div class="last">
@@ -172,35 +83,111 @@
             <p>&copy; 2024 AQI Index Monitor. All rights reserved.</p>
         </div>
     </footer>
+    
+    <!-- File input for CSV -->
+    <input type="file" id="csv-file-input" accept=".csv" />
+
     <script src="darkmode.js"></script>
+
     <script>
-        // Initialize and add the map
-        function initMap() {
-            var mumbai = { lat: 19.0760, lng: 72.8777 };
+        // Handle CSV file upload
+        document.getElementById('bkcco.csv').addEventListener('change', function(e) {
+            Papa.parse(e.target.files[0], {
+                header: true,  // Assuming the first row contains headers
+                dynamicTyping: true,
+                complete: function(results) {
+                    console.log(results);  // Check parsed results
+                    // Call the function to generate the graph
+                    createGraph(results.data);
+                },
+                error: function(error) {
+                    alert("Error parsing CSV file: " + error.message);
+                }
+            });
+        });
 
-<script src="darkmode.js"></script>
-    <script>
-        // Initialize and add the map
-        function initMap() {
-            var mumbai = { lat: 19.0760, lng: 72.8777 };
-            var map = new google.maps.Map(document.getElementById('map'), { zoom: 10, center: mumbai });
-            var marker = new google.maps.Marker({ position: mumbai, map: map });
-        }
+        // Function to create a graph based on parsed CSV data
+        function createGraph(parsedData) {
+            const labels = parsedData.map(row => row['Day']);  // Assuming 'Day' column in CSV
+            const data = parsedData.map(row => row['AQI']);    // Assuming 'AQI' column in CSV
 
-        // Initialize the map when the window loads
-        window.onload = initMap;
+            const ctx1 = document.getElementById('graph1').getContext('2d');
+            const ctx2 = document.getElementById('graph2').getContext('2d');
+            const ctx3 = document.getElementById('graph3').getContext('2d');
+            const ctx4 = document.getElementById('graph4').getContext('2d');
 
-        // Generate sample graphs
-        const createGraph = (ctx) => {
-            new Chart(ctx, {
+            // Create graph for graph1 (Carbon Monoxide)
+            new Chart(ctx1, {
                 type: 'line',
                 data: {
-                    labels: ['Day 1', 'Day 2', 'Day 3', 'Day 4', 'Day 5', 'Day 6', 'Day 7'],
+                    labels: labels,
                     datasets: [{
-                        label: 'Sample Data',
-                        data: [10, 20, 15, 25, 30, 35, 40],
+                        label: 'Carbon Monoxide AQI',
+                        data: data,
+                        borderColor: 'rgba(255, 99, 132, 1)',
+                        fill: false
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        x: { display: true },
+                        y: { display: true }
+                    }
+                }
+            });
+
+            // Create graph for graph2 (Carbon Monoxide) - same data for example
+            new Chart(ctx2, {
+                type: 'line',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Carbon Monoxide AQI',
+                        data: data,
                         borderColor: 'rgba(75, 192, 192, 1)',
-                        borderWidth: 1,
+                        fill: false
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        x: { display: true },
+                        y: { display: true }
+                    }
+                }
+            });
+
+            // Create graph for graph3 (Carbon Dioxide) - same data for example
+            new Chart(ctx3, {
+                type: 'line',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Carbon Dioxide AQI',
+                        data: data,
+                        borderColor: 'rgba(54, 162, 235, 1)',
+                        fill: false
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        x: { display: true },
+                        y: { display: true }
+                    }
+                }
+            });
+
+            // Create graph for graph4 (Benzene) - same data for example
+            new Chart(ctx4, {
+                type: 'line',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Benzene AQI',
+                        data: data,
+                        borderColor: 'rgba(153, 102, 255, 1)',
                         fill: false
                     }]
                 },
@@ -213,11 +200,6 @@
                 }
             });
         }
-
-        document.addEventListener('DOMContentLoaded', () => {
-            createGraph(document.getElementById('graph1').getContext('2d'));
-            createGraph(document.getElementById('graph2').getContext('2d'));
-            createGraph(document.getElementById('graph3').getContext('2d'));
-            createGraph(document.getElementById('graph4').getContext('2d'));
-        });
     </script>
+</body>
+</html>
