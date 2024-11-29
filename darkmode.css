@@ -23,8 +23,17 @@
 }
 
 /* home.css */
+#google_translate_element { 
+    margin-top: 10px;
+    text-align: right; 
+}
 
-/* Default font size */
+.goog-te-combo { 
+    border: 1px solid #ccc; 
+    border-radius: 5px; 
+    padding: 5px; 
+    font-size: 16px; }
+
 body {
     font-size: 16px;
 }
