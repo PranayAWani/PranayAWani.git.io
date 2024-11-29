@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link rel="icon" href="icon.jpg" type="image/x-icon"> 
+    <link rel="shortcut icon" href="icon.jpg" type="image/x-icon">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="aboutstyle.css">
@@ -9,8 +11,14 @@
 </head>
 <body>
     <header>
-        <h1>Hardware Express</h1>
-        <div class="header-buttons">
+        <div class="company-info">
+            <div class="company-name">Hardware Express</div>
+            <div class="slogan">BUILD TO BREATH CLEAN</div>
+        </div>
+        <div class="font-size-buttons"> 
+            <button onclick="setFontSize('small')">A-</button> 
+            <button onclick="setFontSize('normal')">A</button> 
+            <button onclick="setFontSize('large')">A+</button> 
             <button id="toggle-mode">Light Mode</button>
             <button id="login-button">Login</button>
         </div>
