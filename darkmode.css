@@ -22,6 +22,39 @@
     --footer-background: #444;
 }
 
+/* home.css */
+
+/* Default font size */
+body {
+    font-size: 16px;
+}
+
+/* Normal font size */
+body.normal-font {
+    font-size: 16px;
+}
+
+/* Larger font size */
+body.large-font {
+    font-size: 20px;
+}
+
+/* Smaller font size */
+body.small-font {
+    font-size: 12px;
+}
+
+/* Styling for font size buttons */
+.font-size-buttons {
+    margin: 20px;
+}
+
+.font-size-buttons button {
+    margin-right: 10px;
+    padding: 10px;
+    font-size: 14px;
+}
+
 * {
     margin: 0; 
     padding: 0; 
@@ -31,7 +64,7 @@
 /* Header styling */
 header {
     background-color: var(--header-background); 
-    height: 80px;
+    height: 60px;
     display: flex;
     align-items: center;
     justify-content: space-between; 
