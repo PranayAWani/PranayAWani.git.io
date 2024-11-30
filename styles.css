@@ -1,0 +1,101 @@
+
+#map{
+    
+}
+main{
+   display: flex; 
+}
+*{
+    padding:0;
+    margin:0;
+    box-sizing:border-box;
+    -webkit-font-smoothing:antialiased;
+
+} 
+body{
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+.buslist .heading{
+    background:bisque; 
+    color:#000000;
+}
+.buslist .heading h2{
+   padding:1rem;
+}
+::-webkit-scrollbar{
+    width:3px;
+    height: 3px;
+    border-left:0;
+    background: rgba(0,0,0,0.1);
+}
+::-webkit-scrollbar-thumb{
+    background: #000000;
+    border-radius:0;
+}
+.buslist ul.list{
+    padding: 0 1rem;
+    list-style-type: none;
+   
+}
+.buslist .stops{
+    margin:1 rem 0;
+    border-bottom: 1px solid rgba(0,0,0,0.1);
+    padding-bottom: 1rem;
+}
+.buslist li:last-child.stops{
+    border:none;
+}
+.buslist .stops a{
+    text-decoration:none;
+    font-size:20px;
+    color: #000000;
+    font-weight:700;
+}
+.leaflet-popup-content-wrapper{
+    padding:0;
+    overflow:hidden;
+}
+.leaflet-popup-content-wrapper .leaflet-popup-content{
+    margin:0;
+
+}
+.leaflet-popup-content-wrapper h4{
+    padding:16px;
+    background:bisque;
+    color:black;
+    font-size:16px;
+}
+ 
+.search-container {
+    width: 300px;
+    text-align: center;
+  }
+  
+#search-input {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+  }
+  
+  #search-results {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  #search-results li {
+    background-color: #fff;
+    padding: 8px;
+    border-bottom: 1px solid #ddd;
+    cursor: pointer;
+  }
+  
+  #search-results li:hover {
+    background-color: #f1f1f1;
+  }
+  
