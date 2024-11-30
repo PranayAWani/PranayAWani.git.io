@@ -1,205 +1,60 @@
-/* General Reset */
-body, h1, h2, p, a, button {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+.buslist{
+    width:25%;
+    height:100vh;
+    overflow:auto;
+    background:whitesmoke;
 }
-
-body {
-    font-family: Arial, sans-serif;
-    line-height: 1.6;
-    background-color: var(--background-color);
-    color: var(--text-color);
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
+#map{
+    height:100vh;
+    width:75%
 }
-
-header {
-    background-color: var(--header-background);
-    color: var(--text-color);
-    padding: 1rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+main{
+   display: flex; 
 }
+*{
+    padding:0;
+    margin:0;
+    box-sizing:border-box;
+    -webkit-font-smoothing:antialiased;
 
-header .name {
-    font-size: 1.8rem;
+} 
+body{
+    font-family: 'Times New Roman', Times, serif;
 }
-
-.header-buttons button {
-    background-color: var(--nav-hover-background);
-    color: var(--text-color);
-    border: none;
-    padding: 0.5rem 1rem;
-    cursor: pointer;
-    border-radius: 5px;
-    font-size: 1rem;
-    margin-left: 10px;
+.buslist .heading{
+    background:bisque; 
+    color:#000000;
 }
-
-.header-buttons button:hover {
-    background-color: var(--nav-hover-background);
-    filter: brightness(0.9);
+.buslist .heading h2{
+   padding:1rem;
 }
-
-nav {
-    background-color: var(--nav-background);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0.5rem 1rem;
-    border-bottom: 1px solid var(--text-color);
+::-webkit-scrollbar{
+    width:3px;
+    height: 3px;
+    border-left:0;
+    background: rgba(0,0,0,0.1);
 }
-
-nav .leftcont, nav .rightcont {
-    display: flex;
+::-webkit-scrollbar-thumb{
+    background: #000000;
+    border-radius:0;
 }
-
-nav .box {
-    margin-right: 1rem;
+.buslist ul.list{
+    padding: 0 1rem;
+    list-style-type: none;
+   
 }
-
-nav .box a {
-    text-decoration: none;
-    color: var(--nav-text-color);
-    font-weight: bold;
-    font-size: 1rem;
+.buslist .stops{
+    margin:1 rem 0;
+    border-bottom: 1px solid rgba(0,0,0,0.1);
+    padding-bottom: 1rem;
 }
-
-nav .box a:hover {
-    text-decoration: underline;
-    background-color: var(--nav-hover-background);
-    border-radius: 5px;
-    padding: 0.2rem;
+.buslist li:last-child.stops{
+    border:none;
 }
+.buslist .stops a{
+    text-decoration:none;
+    font-size:20px;
+    color: #000000;
+    font-weight:700;
 
-main {
-    flex-grow: 1;
-    padding: 1rem;
-    position: relative; /* To position scroll buttons */
-}
-
-.container {
-    display: flex; /* Arrange flashcards horizontally */
-    gap: 1rem;
-    overflow-x: auto; /* Enable horizontal scrolling */
-    scrollbar-width: none; /* Hide scrollbar in Firefox */
-    -ms-overflow-style: none; /* Hide scrollbar in IE/Edge */
-}
-
-.container::-webkit-scrollbar {
-    display: none; /* Hide scrollbar in Chrome/Safari */
-}
-/* Flashcard Styles */
-.flashcard {
-    width: 250px; /* Fixed width */
-    height: 350px; /* Fixed height */
-    background: var(--flashcard-background);
-    color: var(--flashcard-text-color);
-    border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s, box-shadow 0.3s;
-    overflow: hidden;
-    cursor: pointer;
-    display: flex;
-    flex-direction: column; /* Ensures consistent layout */
-    justify-content: space-between; /* Space out content vertically */
-    text-align: center;
-}
-
-.flashcard:hover {
-    transform: scale(1.05);
-    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
-}
-
-/* Flashcard Header */
-.flashcard-header {
-    background: var(--header-background);
-    color: white;
-    padding: 1rem;
-    font-size: 1.2rem;
-    font-weight: bold;
-}
-
-/* Flashcard Content */
-.flashcard-content {
-    flex-grow: 1;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center; /* Centers content vertically */
-    gap: 0.5rem;
-    padding: 0.5rem;
-}
-
-.flashcard-content .aqi-title {
-    font-size: 1rem;
-    font-weight: bold;
-}
-
-.flashcard-content .aqi-value {
-    font-size: 1.8rem;
-    color: #ff6b6b; /* AQI highlight color */
-    font-weight: bold;
-}
-
-/* Flashcard Image */
-.flashcard-image {
-    height: 120px; /* Ensures consistent image size */
-    overflow: hidden;
-}
-
-.flashcard-image img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover; /* Crops the image to fit container */
-    border-radius: 0 0 10px 10px; /* Matches card's border radius */
-}
-
-/* Scroll Buttons */
-.scroll-button {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    background-color: var(--header-background);
-    border: none;
-    color: var(--text-color);
-    cursor: pointer;
-    font-size: 1.5rem;
-    padding: 0.5rem;
-    border-radius: 50%;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    z-index: 10;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.scroll-button:hover {
-    background-color: var(--nav-hover-background);
-}
-
-.scroll-button.left {
-    left: 10px;
-}
-
-.scroll-button.right {
-    right: 10px;
-}
-
-.bottom {
-    padding: 1rem;
-}
-
-
-/* Footer */
-footer {
-    background-color: var(--footer-background);
-    color: var(--text-color);
-    text-align: center;
-    padding: 1rem;
-    margin-top: auto;
 }
