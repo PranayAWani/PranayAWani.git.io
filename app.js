@@ -48,12 +48,12 @@ function generateList() {
 
 // Call the function to generate the list when the page loads
  generateList();
-function makePopupContent(stop){
-   return
-     <div>
-         <h4>${stop.properties.name}</h4>
-     </div>
- }
+// function makePopupContent(stop){
+//    return
+//      <div>
+//          <h4>${stop.properties.name}</h4>
+//      </div>
+//  }
 function onEachFeature(feature,layer){
     layer.bindPopup(makePopupContent(feature));
 
