@@ -231,11 +231,19 @@ main {
 }
 
 .flashcard3 {
-    background-image: url('qutub_minnar.png');
+    background-image: url('delhi.jpeg');
 }
 
 .flashcard4 {
     background-image: url('bhilai.png');
+}
+
+.flashcard5 {
+    background-image: url('agara.jpg');
+}
+
+.flashcard6 {
+    background-image: url('chennai.jpg');
 }
 
 /* Full-page scrolling animation */
