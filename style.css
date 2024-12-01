@@ -5,11 +5,6 @@
     -webkit-font-smoothing:antialiased;
 } 
 
-#map{
-    height:100vh;
-    width:80%
-}
-
 body, h1, h2, p, a, button {
     margin: 0;
     padding: 0;
@@ -33,6 +28,11 @@ main {
     flex-direction: column;
     padding: 1rem;
     position: relative; /* To position scroll buttons */
+}
+
+#map{
+    height:100vh;
+    width:80%
 }
 
 .map{
@@ -138,16 +138,7 @@ main {
 #search-results li:hover {
     background-color: #f1f1f1;
 }
-/* 
-.flashcard-container {
-    position: relative;
-    overflow: hidden; /* Hides content outside the container */
-    width: 90vw;
-    height: 80vh;
-    margin: auto;
-}
 
-/* Carousel configuration */
 .flashcard-container {
     position: relative;
     overflow: hidden; /* Hides content outside the container */
@@ -160,16 +151,14 @@ main {
     backdrop-filter: blur(10px); /* Adds a subtle blur effect behind the container */
 }
 
-/* Carousel configuration */
 .carousel {
     display: flex;
     flex-direction: row; /* Ensures items are aligned horizontally */
     width: calc(200%); /* Double the width for seamless cyclic scrolling */
     animation: fullpage-scrolling 30s linear infinite;
-    gap: 15px;
+    gap: 25px;
 }
 
-/* Individual slides */
 .flashcard {
     flex: 0 0 80%; /* Each flashcard takes 80% of the container's width */
     height: 100%; /* Full height of the container */
@@ -207,6 +196,7 @@ main {
 .flashcard:hover {
     transform: scale(1.05);
     box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5), 0 0 15px rgba(255, 255, 255, 0.6);
+
 }
 
 /* Add inner content for text and additional styling */
