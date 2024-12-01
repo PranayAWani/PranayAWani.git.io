@@ -138,71 +138,117 @@ main {
 #search-results li:hover {
     background-color: #f1f1f1;
 }
-  
-.container {
-    gap: 1rem;
-    overflow: hidden;
-    scrollbar-width: none; 
-    -ms-overflow-style: none;
-    width: 100%;
+/* 
+.flashcard-container {
+    position: relative;
+    overflow: hidden; /* Hides content outside the container */
+    width: 90vw;
     height: 80vh;
-    background-color: #000000;
-    padding: 20px;
+    margin: auto;
 }
 
-.container::-webkit-scrollbar {
-    display: none; 
+/* Carousel configuration */
+.flashcard-container {
+    position: relative;
+    overflow: hidden; /* Hides content outside the container */
+    width: 90vw;
+    height: 80vh;
+    margin: auto;
+    border-radius: 15px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0.05), rgba(0, 0, 0, 0.2));
+    backdrop-filter: blur(10px); /* Adds a subtle blur effect behind the container */
 }
 
-.flashcard {
-    width: 100%;   
-    height: 75vh; 
-    align-self: center;
-    /* background: var(--flashcard-background); */
-    background-image: url(gateway.png);
-    color: var(--flashcard-text-color);
-    border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s, box-shadow 0.3s;
-    overflow: hidden;
-    cursor: pointer;
+/* Carousel configuration */
+.carousel {
     display: flex;
-    flex-direction: column; 
-    justify-content: space-between; 
-    text-align: center;
-    z-index: 4;
+    flex-direction: row; /* Ensures items are aligned horizontally */
+    width: calc(200%); /* Double the width for seamless cyclic scrolling */
+    animation: fullpage-scrolling 30s linear infinite;
+    gap: 15px;
 }
 
-.scroll-button {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    background-color: var(--header-background);
-    border: none;
-    color: var(--text-color);
-    cursor: pointer;
-    font-size: 1.5rem;
-    padding: 0.5rem;
-    border-radius: 50%;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    z-index: 10;
+/* Individual slides */
+.flashcard {
+    flex: 0 0 80%; /* Each flashcard takes 80% of the container's width */
+    height: 100%; /* Full height of the container */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    border-radius: 20px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3), inset 0 0 20px rgba(255, 255, 255, 0.2); /* Adds depth and inner glow */
     display: flex;
     justify-content: center;
     align-items: center;
+    font-size: 3rem;
+    font-weight: bold;
+    color: #fff;
+    text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.8);
+    overflow: hidden;
+    position: relative;
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
 }
 
-.scroll-button:hover {
-    background-color: var(--nav-hover-background);
+/* Glossy effect overlay */
+.flashcard::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0));
+    mix-blend-mode: overlay;
+    pointer-events: none;
 }
 
-.scroll-button.left {
-    left: 10px;
+/* Add a glowing border */
+.flashcard:hover {
+    transform: scale(1.05);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5), 0 0 15px rgba(255, 255, 255, 0.6);
 }
 
-.scroll-button.right {
-    right: 10px;
+/* Add inner content for text and additional styling */
+.flashcard .content {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    background: rgba(0, 0, 0, 0.4);
+    padding: 10px 20px;
+    border-radius: 10px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(5px); /* Blurs background content under the text box */
 }
 
-.bottom {
-    padding: 1rem;
+/* Specific backgrounds for slides */
+.flashcard1 {
+    background-image: url('gateway.png');
+}
+
+.flashcard2 {
+    background-image: url('pune.png');
+}
+
+.flashcard3 {
+    background-image: url('qutub_minnar.png');
+}
+
+.flashcard4 {
+    background-image: url('bhilai.png');
+}
+
+/* Full-page scrolling animation */
+@keyframes fullpage-scrolling {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(-100%);
+    }
+}
+
+/* Pause animation on hover */
+.flashcard-container:hover .carousel {
+    animation-play-state: paused;
 }
