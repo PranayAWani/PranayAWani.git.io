@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <head>  
     <link rel="icon" href="icon.jpg" type="image/x-icon"> 
     <link rel="shortcut icon" href="icon.jpg" type="image/x-icon"> 
     <meta charset="UTF-8">
@@ -51,77 +52,32 @@
                     <div class="search-container">
                         <input type="text" id="search-input" placeholder="Search..." onkeyup="searchItems()">
                         <ul id="search-results"></ul>
-                    </div> 
+                    </div>
                 </div>
                 <ul class="list"></ul>
             </div>
-            <div id="map"></div>
+            
+            <div id="map"></div id>
         </div>
         <div class="flashcard-container">
-            <div class="carousel" id="carousel">
+            <div class="carousel">
+            <a href="mumbai_page.html">
+                <div class="flashcard">
 
-                <div class="flashcard">
-                    <div class="flashcard-header">
-                        <p class="city-name">MUMBAI</p>
-                    </div>
-                    <div class="flashcard-content">
-                        <h2 class="aqi-title">Air Quality Index</h2>
-                        <h2 class="aqi-value">98</h2>
-                    </div>
-                    <div class="flashcard-image">
-                        <img src="gateway.png" alt="Gateway of India">
-                    </div>
                 </div>
-                <div class="flashcard">
-                    <div class="flashcard-header">
-                        <p class="city-name">JALGAON</p>
-                    </div>
-                    <div class="flashcard-content">
-                        <h2 class="aqi-title">Air Quality Index</h2>
-                        <h2 class="aqi-value">60</h2>
-                    </div>
-                    <div class="flashcard-image">
-                        <img src="jalgaon.png" alt="Jalgaon">
-                    </div>
-                </div>
-
-                <div class="flashcard">
-                    <div class="flashcard-header">
-                        <p class="city-name">DELHI</p>
-                    </div>
-                    <div class="flashcard-content">
-                        <h2 class="aqi-title">Air Quality Index</h2>
-                        <h2 class="aqi-value">120</h2>
-                    </div>
-                    <div class="flashcard-image">
-                        <img src="qutub_minnar.png" alt="Qutub Minar">
-                    </div>
-                </div>
-
-                <div class="flashcard">
-                    <div class="flashcard-header">
-                        <p class="city-name">Pune</p>
-                    </div>
-                    <div class="flashcard-content">
-                        <h2 class="aqi-title">Air Quality Index</h2>
-                        <h2 class="aqi-value">120</h2>
-                    </div>
-                    <div class="flashcard-image">
-                        <img src="pune.png" alt="Qutub Minar">
-                </div>
-            </div>
-        </div>
+            </a>
+        </div> 
     </main>
     <footer>
         <div class="footer-content">
             <p>&copy; 2024 AQI Index Monitor. All rights reserved.</p>
         </div>
     </footer>
-    <script src="https://unpkg.com/@turf/turf/turf.min.js"></script>
+    <script src="https://unpkg.com/@turf/turf/turf.min.js"></script> -->
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
     <script src="app.js"></script>
+    <script src="bus.js"></script>
     <script src="script.js"></script>
     <script src="darkmode.js"></script>
-    <script src="carousel.js"></script>
 </body>
 </html>

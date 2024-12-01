@@ -38,18 +38,22 @@ body {
     font-size: 16px;
 }
 
+/* Normal font size */
 body.normal-font {
     font-size: 16px;
 }
 
+/* Larger font size */
 body.large-font {
     font-size: 20px;
 }
 
+/* Smaller font size */
 body.small-font {
     font-size: 12px;
 }
 
+/* Styling for font size buttons */
 .font-size-buttons {
     margin: 20px;
 }
@@ -97,7 +101,6 @@ header button {
     border-radius: 5px; 
 }
 
-/* Company name and slogan styling */
 .company-info {
     display: flex; 
     flex-direction: column; 
@@ -119,8 +122,8 @@ header button {
 }
 
 nav {
-    margin: auto;
-    padding: 10px 35px;
+    margin: 0px;
+    padding: 10px 5px;
     height: 50px;
     width: 100%;
     background-color: var(--nav-background); 
@@ -172,7 +175,7 @@ nav .search-container {
 
 nav #city-search {
     width: 50%;
-    padding: 0.5rem;
+    padding: 0.2rem;
     border: 1px solid var(--text-color);
     border-radius: 5px;
     font-size: 1rem;
@@ -185,7 +188,7 @@ footer {
     padding: 18px;
     text-align: center;
     color: var(--text-color); 
-    position: fixed;
+    position: static;
     bottom: 0;
     width: 100%;
 }
