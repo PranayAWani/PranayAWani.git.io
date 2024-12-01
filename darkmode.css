@@ -38,22 +38,18 @@ body {
     font-size: 16px;
 }
 
-/* Normal font size */
 body.normal-font {
     font-size: 16px;
 }
 
-/* Larger font size */
 body.large-font {
     font-size: 20px;
 }
 
-/* Smaller font size */
 body.small-font {
     font-size: 12px;
 }
 
-/* Styling for font size buttons */
 .font-size-buttons {
     margin: 20px;
 }
