@@ -1,0 +1,186 @@
+:root {
+    --background-color: rgba(248, 249, 250, 0.9);
+    --text-color: #333;
+    --header-background: linear-gradient(135deg, #8fcfd1, #00796b);
+    --nav-background: rgba(224, 247, 250, 0.9);
+    --nav-text-color: #00796b;
+    --nav-hover-background: rgba(178, 223, 219, 0.8);
+    --button-background: linear-gradient(135deg, #00796b, #004d40);
+    --button-hover-background: linear-gradient(135deg, #004d40, #00251a);
+    --flashcard-background: rgba(255, 255, 255, 0.95);
+    --flashcard-text-color: #333;
+    --footer-background: linear-gradient(135deg, #8fcfd1, #444);
+    --input-border-color: #ccc;
+    --shadow-color: rgba(0, 0, 0, 0.2);
+}
+
+[data-theme="dark"] {
+    --background-color: rgba(51, 51, 51, 0.9);
+    --text-color: #f8f9fa;
+    --header-background: linear-gradient(135deg, #444, #222);
+    --nav-background: rgba(85, 85, 85, 0.9);
+    --nav-text-color: #f8f9fa;
+    --nav-hover-background: rgba(102, 102, 102, 0.8);
+    --button-background: linear-gradient(135deg, #222, #111);
+    --button-hover-background: linear-gradient(135deg, #111, #000);
+    --flashcard-background: rgba(85, 85, 85, 0.95);
+    --flashcard-text-color: #f8f9fa;
+    --footer-background: linear-gradient(135deg, #444, #111);
+    --input-border-color: #777;
+    --shadow-color: rgba(0, 0, 0, 0.5);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    transition: all 0.3s ease;
+}
+
+header {
+    background: var(--header-background);
+    height: 100px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    box-shadow: 0 4px 6px var(--shadow-color);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+header h1 {
+    font-size: 2rem;
+    color: var(--text-color);
+    text-shadow: 1px 1px 4px var(--shadow-color);
+}
+
+nav {
+    margin: auto;
+    padding: 10px 35px;
+    height: 50px;
+    width: 100%;
+    background: var(--nav-background);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid var(--nav-text-color);
+    box-shadow: 0 4px 6px var(--shadow-color);
+}
+
+nav .box {
+    padding: 10px 20px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    color: var(--nav-text-color);
+    cursor: pointer;
+    border-radius: 8px;
+}
+
+nav .box:hover {
+    background-color: var(--nav-hover-background);
+    transform: translateY(-3px);
+    box-shadow: 0 6px 10px var(--shadow-color);
+}
+
+nav a {
+    text-decoration: none;
+    color: inherit;
+    font-weight: bold;
+}
+
+main {
+    background-color: var(--flashcard-background);
+    background-image: url(background.jpg);
+    text-align: center;
+    height: calc(100vh - 160px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-size: cover;
+    background-position: center;
+    backdrop-filter: blur(5px);
+}
+
+.login-container {
+    margin-top: 69px;
+    max-width: 400px;
+    background: rgba(255, 255, 255, 0.9);
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 8px 20px var(--shadow-color);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    backdrop-filter: blur(10px);
+    transition: all 0.3s ease;
+}
+
+.login-container:hover {
+    transform: scale(1.02);
+}
+
+.login-container h2 {
+    margin-bottom: 20px;
+    color: var(--text-color);
+    font-size: 1.5rem;
+    text-shadow: 1px 1px 2px var(--shadow-color);
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+label {
+    margin-bottom: 5px;
+    font-weight: bold;
+    text-align: left;
+    width: 100%;
+}
+
+input {
+    margin-bottom: 15px;
+    padding: 12px;
+    border: 1px solid var(--input-border-color);
+    border-radius: 8px;
+    width: 100%;
+    box-shadow: inset 0 2px 4px var(--shadow-color);
+}
+
+input:focus {
+    outline: none;
+    border-color: var(--nav-text-color);
+    box-shadow: 0 0 6px var(--nav-text-color);
+}
+
+button {
+    padding: 12px 25px;
+    background: var(--button-background);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 1rem;
+    font-weight: bold;
+    box-shadow: 0 4px 8px var(--shadow-color);
+}
+
+button:hover {
+    background: var(--button-hover-background);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px var(--shadow-color);
+}
