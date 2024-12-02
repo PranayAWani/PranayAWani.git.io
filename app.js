@@ -1,5 +1,5 @@
 // Initialize the map (starting with Mumbai's coordinates)
-const map = L.map('map').setView([19.0760, 72.8777], 12); // Mumbai Coordinates
+const map = L.map('map').setView([19.0760, 72.8777], 10); // Mumbai Coordinates
 
 // Add OpenStreetMap Tile Layer to the map
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {

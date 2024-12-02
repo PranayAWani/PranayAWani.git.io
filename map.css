@@ -1,0 +1,139 @@
+.map {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 90vh;
+    width: 100%;
+    margin: auto;
+    position: relative;
+    border-radius: 20px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    overflow: hidden;
+    background: linear-gradient(135deg, #f0f4ff, #e6eefc);
+    border: 1px solid #e0e0e0;
+}
+
+#map {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    z-index: 0;
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+#search-input {
+    width: 100%;
+    max-width: 300px;
+    padding: 12px 16px;
+    font-size: 16px;
+    border: 1px solid #c0c0c0;
+    border-radius: 10px;
+    background-color: #ffffff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    outline: none;
+    position: absolute;
+    top: 100px;
+    left: 20px; /* Align to the left */
+    z-index: 2;
+    transition: all 0.3s ease-in-out;
+}
+
+#search-input:focus {
+    border-color: #4285F4;
+    box-shadow: 0 0 10px rgba(66, 133, 244, 0.5);
+    transform: scale(1.05);
+}
+
+/* Search Results Dropdown */
+#search-results {
+    width: 100%;
+    max-width: 300px;
+    position: absolute;
+    top: 70px;
+    z-index: 3;
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    top: 140px;
+    left: 20px;
+    background: #ffffff;
+    border-radius: 15px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    border: 1px solid #e0e0e0;
+    overflow-y: auto;
+    max-height: 300px;
+    /* border: radius bottom 20px; */
+}
+
+/* Styling each search result */
+#search-results li {
+    padding: 12px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s;
+    border-bottom: 1px solid #f1f1f1;
+    color: #333333;
+    font-size: 15px;
+    font-weight: 500;
+}
+
+/* Hover effect for search results */
+#search-results li:hover {
+    background-color: #f7faff;
+    transform: translateX(5px);
+}
+
+/* Empty results message styling */
+#search-results li.no-results {
+    text-align: center;
+    color: #888888;
+    font-style: italic;
+    padding: 12px;
+}
+
+/* Custom Styling for Map Overlay */
+.map::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.8), rgba(240, 240, 240, 0.6));
+    pointer-events: none;
+    opacity: 0.5;
+}
+
+/* Floating Labels (Optional for Additional Information) */
+#map .label {
+    position: absolute;
+    z-index: 4;
+    background: #ffffff;
+    color: #333333;
+    padding: 8px 12px;
+    font-size: 14px;
+    font-weight: bold;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Adjustments for Mobile View */
+@media (max-width: 768px) {
+    .map {
+        height: 80vh;
+        width: 100%;
+        margin: 10px auto;
+    }
+
+    #search-input {
+        max-width: 90%;
+        margin-top: 10px;
+    }
+
+    #search-results {
+        max-width: 90%;
+        top: 60px;
+    }
+}
