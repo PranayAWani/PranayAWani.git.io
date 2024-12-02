@@ -5,8 +5,7 @@ const map = L.map('map').setView([19.0760, 72.8777], 12); // Mumbai Coordinates
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
 }).addTo(map);
-// bus.js - Array of major bus stops in Mumbai with name, latitude, and longitude
-// bus.js - Array of bus stops in Mumbai with name, latitude, and longitude
+
 const busStops = [
     { name: "Chembur Bus Stop", lat: 19.073, lng: 72.897 },
     { name: "Kurla Bus Stop", lat: 19.067, lng: 72.887 },
@@ -94,46 +93,52 @@ function searchItems() {
     const query = document.getElementById('search-input').value.toLowerCase();
     const results = busStops.filter(stop => stop.name.toLowerCase().includes(query));
 
-    // Clear the previous search results
-    document.getElementById('search-results').innerHTML = '';
+    const searchResults = document.getElementById('search-results');
+    searchResults.innerHTML = ''; // Clear previous results
 
-    // Remove previous markers from the map
+    // Remove existing markers
     map.eachLayer(layer => {
         if (layer instanceof L.Marker) {
             map.removeLayer(layer);
         }
     });
 
-    // If there are no results, show a message
     if (results.length === 0) {
         const noResult = document.createElement('li');
         noResult.textContent = 'No bus stops found.';
-        document.getElementById('search-results').appendChild(noResult);
+        searchResults.appendChild(noResult);
         return;
     }
 
-    // Add markers to the map for each result and display them in the search results list
     results.forEach(stop => {
-        // Create a marker for each bus stop
         const marker = L.marker([stop.lat, stop.lng]).addTo(map)
             .bindPopup(`<strong>${stop.name}</strong><br>Latitude: ${stop.lat}<br>Longitude: ${stop.lng}`);
 
-        // Add to search results list
         const li = document.createElement('li');
         li.textContent = stop.name;
-        li.onclick = function() {
-            // Zoom into the selected bus stop on click
+        li.onclick = () => {
             map.setView([stop.lat, stop.lng], 15);
             marker.openPopup();
         };
-        document.getElementById('search-results').appendChild(li);
+        searchResults.appendChild(li);
     });
+
+    searchResults.style.display = 'block'; // Show search results
 }
 
-// Trigger the search function on keyup event
+// Reset the search box when clicking outside
+document.addEventListener('click', event => {
+    const searchInput = document.getElementById('search-input');
+    const searchResults = document.getElementById('search-results');
+    if (!searchInput.contains(event.target) && !searchResults.contains(event.target)) {
+        searchInput.value = ''; // Clear search box
+        searchResults.innerHTML = ''; // Clear results
+        searchResults.style.display = 'none'; // Hide search results
+    }
+});
+
+// Trigger the search function on keyup
 document.getElementById('search-input').addEventListener('keyup', searchItems);
 
-// Initialize search results list on page load (optional)
-document.addEventListener('DOMContentLoaded', () => {
-    searchItems(); // Display all bus stops initially
-});
+// Initialize search results on page load (optional)
+document.addEventListener('DOMContentLoaded', searchItems);

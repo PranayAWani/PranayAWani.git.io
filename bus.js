@@ -1,4 +1,3 @@
-// bus.js - Array of bus stops in Mumbai with name, latitude, and longitude
 const busStops = [
     { name: "Chembur Bus Stop", lat: 19.073, lng: 72.897 },
     { name: "Kurla Bus Stop", lat: 19.067, lng: 72.887 },
