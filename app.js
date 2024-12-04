@@ -1,7 +1,5 @@
-// Initialize the map (starting with Mumbai's coordinates)
-const map = L.map('map').setView([19.0760, 72.8777], 10); // Mumbai Coordinates
+const map = L.map('map').setView([19.0760, 72.8777], 13); 
 
-// Add OpenStreetMap Tile Layer to the map
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
 }).addTo(map);
@@ -61,7 +59,6 @@ const busStops = [
     { name: "LBSN College Bus Stop", lat: 19.114, lng: 72.911 },
     { name: "Kalyan Bus Stop", lat: 19.251, lng: 73.129 },
     { name: "Dombivli Bus Stop", lat: 19.211, lng: 73.084 },
-    // Add additional 150 bus stops, simulating real-world stops across various Mumbai locations
     { name: "Andheri East Bus Stop", lat: 19.111, lng: 72.868 },
     { name: "Ghatkopar East Bus Stop", lat: 19.100, lng: 72.896 },
     { name: "Kandivali West Bus Stop", lat: 19.215, lng: 72.848 },

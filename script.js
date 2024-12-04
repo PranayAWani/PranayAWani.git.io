@@ -51,3 +51,5 @@ async function updateFlashcards() {
 document.addEventListener('DOMContentLoaded', () => {
     updateFlashcards();
 });
+
+

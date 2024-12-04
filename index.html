@@ -15,8 +15,16 @@
             }, 'google_translate_element');
         }
     </script>
+    
     <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+
+    <script src="https://cdn.jsdelivr.net/npm/emailjs-com@2.6.4/dist/email.min.js"></script>
+    <script>
+        (function() {
+            emailjs.init("2023.pranay.wani@ves.ac.in"); // Replace with your EmailJS user ID
+        })();
+    </script>
+
 </head>
 <body>
     <header>
@@ -50,6 +58,11 @@
         </div>
     </nav>
     <main>
+
+        <div class="map">
+            <a href="map.html" id="map"> 
+        </div>
+
         <div class="location">
             <div class="contentbox">
                 <h1>Mumbai, Maharashtra</h1>
@@ -62,9 +75,6 @@
                         <div>PM10: 136 µg/m³</div>
                         <div>PM2.5: 63 µg/m³</div>
                     </div>
-                    <!-- <div class="illustration">
-                        <img src="illustration.png" alt="Illustration">
-                    </div> -->
                 </div>
                 <div class="bar-container">
                     <div class="bar">
@@ -72,15 +82,31 @@
                     </div>
                 </div>
             </div>
-
-            <div class="map">
-                <a href="map.html" id="map"> </a>
-            </div>
         </div>
 <div class="container">
-        <div class="detailed"> <div class="box box1"> <h5>Carbon Monoxide</h5> <h6>Value</h6> </div> <div class="box box2"> <h5>Ozone</h5> <h6>Value</h6> </div> <div class="box box3"> <h5>Sulfur Dioxide</h5> <h6>Value</h6> </div> <div class="box box4"> <h5>Nitrogen Dioxide</h5> <h6>Value</h6> </div> <div class="box box5"> <h5>PM10</h5> <h6>Value</h6> </div> <div class="box box6"> <h5>PM2.5</h5> <h6>Value</h6> </div> </div>
+        <div class="detailed">
+            <div class="boxs box1"> 
+                <h5>CO</h5> 
+                <h6 class="value">5 ppm</h6> 
+                <img  class="icon" width="75px" height="75px" src="co.png" alt="co">
+            </div>
+            <div class="boxs box1"> 
+                <h5>SO<sub>2</sub></h5> 
+                <h6 class="value">10 ppm</h6> 
+                <img  class="icon" width="75px" height="75px" src="so2 (2).png" alt="so2">
+            </div>
+            <div class="boxs box1"> 
+                <h5>pm2.5</h5> 
+                <h6 class="value">15 ppm</h6> 
+                <img  class="icon" width="75px" height="75px" src="pm25.png" alt="pm2.5">
+            </div>
+            <div class="boxs box1"> 
+                <h5>Ozone</h5> 
+                <h6 class="value">20 ppm</h6> 
+                <img class="icon"  width="75px" height="75px" src="ozone.png" alt="o3">
+            </div>
     </div>
-
+</div>
         <div class="flashcard-container">
             <div class="carousel" id="carousel">
                 <a href="mumbai_page.html">
@@ -124,8 +150,7 @@
                         <h1>AQI 96</h1>
                     </div>
                 </a>
-
-
+                
                 <a href="mumbai_page.html">
                     <div class="flashcard flashcard1">
                         <h1>MUMBAI</h1>
@@ -178,13 +203,10 @@
     </footer>
     <script src="https://unpkg.com/@turf/turf/turf.min.js"></script>
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
-    <script src="app.js"></script>
-    <script src="bus.js"></script>
-    <!-- <script src="script.js"></script> -->
-    <script src="darkmode.js"></script>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="app.js" ></script>
+    <script src="bus.js" ></script>
+    <script src="darkmode.js" ></script>
     <script src="carousel.js"></script>
-    <!-- <script>
-        window.location.href = "home.html";
-    </script> -->
 </body>
 </html>
