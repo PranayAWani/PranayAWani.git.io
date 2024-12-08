@@ -16,17 +16,6 @@ document.addEventListener('DOMContentLoaded', () => {
         document.body.classList.add(size);
     }
 
-    // Dark mode toggle
-    const toggleModeButton = document.getElementById('toggle-mode');
-    toggleModeButton.addEventListener('click', () => {
-        document.body.classList.toggle('dark-mode');
-        if (document.body.classList.contains('dark-mode')) {
-            toggleModeButton.textContent = 'Dark Mode';
-        } else {
-            toggleModeButton.textContent = 'Light Mode';
-        }
-    });
-
     // Set initial font size and dark mode state
     setFontSize('normal');
     if (document.body.classList.contains('dark-mode')) {
