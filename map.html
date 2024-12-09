@@ -57,6 +57,10 @@
             <input type="text" id="search-input" placeholder="Search..." onkeyup="searchItems()">
             <ul id="search-results"></ul>
             <div id="map"></div>
+            <div id="chart-container" style="display: none;">
+                <canvas id="aqi-chart"></canvas>
+                <button onclick="showAQIGraph('${stop.name}')">View AQI Graph</button>
+            </div>
         </div>
     </main>
     <footer>
@@ -66,6 +70,11 @@
     </footer>
     <script src="https://unpkg.com/@turf/turf/turf.min.js"></script>
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<div id="chart-container" style="display: none;">
+    <canvas id="aqi-chart"></canvas>
+</div>
+
     <script src="app.js"></script>
     <script src="bus.js"></script>
     <script src="darkmode.js"></script>

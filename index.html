@@ -1,13 +1,12 @@
-{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="icon" href="{% static 'base/img/icon.jpg' %}" type="image/x-icon">
-    <link rel="shortcut icon" href="{% static 'base/img/icon.jpg' %}" type="image/x-icon">
+    <link rel="icon" href="base/img/icon.jpg" type="image/x-icon">
+    <link rel="shortcut icon" href="base/img/icon.jpg" type="image/x-icon">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{% static 'base/css/home.css' %}">
-    <link rel="stylesheet" href="{% static 'base/css/basicfile.css' %}">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="darkmode.css">
     <title>AQI Index Monitor</title>
     <script type="text/javascript">
         function googleTranslateElementInit() {
@@ -15,13 +14,11 @@
                 pageLanguage: 'en',
                 includedLanguages: 'en,hi,bn,te,ta,ml,pa,mr,gu,ur,kn,or,as,ma,ne,sid,bo,sa,ckb,km,guw,mlt,sd,si',
             }, 'google_translate_element');
-        
+        }
     </script>
     <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
-
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-
 </head>
 <body>
     <header>
@@ -39,28 +36,14 @@
     </header>
     <nav>
         <div class="leftcont">
-            <div class="box box1"><a href="{% url 'home' %}">Home</a></div>
-            <div class="box box2"><a href="{% url 'map' %}">Map</a></div>
-{#            <div class="box box3"><a href="{% url 'contact' %}">Contact</a></div>#}
-{#            <div class="box box4"><a href="{% url 'project_details' %}">Project Details</a></div>#}
-{#            <div class="box box5"><a href="{% url 'aboutus' %}">About Us</a></div>#}
+            <div class="box box1"><a href="home.html">Home</a></div>
+            <div class="box box2"><a href="map.html">Map</a></div>
         </div>
-{#        <div class="search-container">#}
-{#            <input type="text" id="city-search" placeholder="Search for a city...">#}
-{#        </div>#}
         <div class="rightcont">
-{#            <div class="box box1"><a href="{% url 'faq' %}">FAQs</a></div>#}
-{#            <div class="box box2"><a href="{% url 'support' %}">Support</a></div>#}
         </div>
     </nav>
     <main>
-{##}
-{#        <div class="map" id="map">#}
-{#            <a href="map.html"></a>#}
-{#        </div>#}
-
         <div class="location">
-
             <div class="contentbox">
                 <h1>Mumbai, Maharashtra</h1>
                 <div class="content">
@@ -68,10 +51,6 @@
                         <div class="aqi-value">127</div>
                         <div class="aqi-status">Poor</div>
                     </div>
-{#                    <div class="pm-values">#}
-{#                        <div>PM10: 136 µg/m³</div>#}
-{#                        <div>PM2.5: 63 µg/m³</div>#}
-{#                    </div>#}
                 </div>
                 <div class="bar-container">
                     <div class="bar">
@@ -79,73 +58,74 @@
                     </div>
                 </div>
             </div>
-        <div class="container">
-            <div class="detailed">
-                <div class="top">
-                <div class="boxs box1">
-                    <h5>CO</h5>
-                    <h6 class="value">5 ppm</h6>
-                    <img class="icon" width="75px" height="75px" src="{% static 'base/img/co.png' %}" alt="CO">
-                </div>
-                <div class="boxs box1">
-                    <h5>SO<sub>2</sub></h5>
-                    <h6 class="value">10 ppm</h6>
-                    <img class="icon" width="75px" height="75px" src="{% static 'base/img/so2 (2).png' %}" alt="SO2">
-                </div>
+            <div class="container">
+                <div class="detailed">
+                    <div class="top">
+                        <div class="boxs box1">
+                            <h5>CO</h5>
+                            <h6 class="value">5 ppm</h6>
+                            <img class="icon" width="75px" height="75px" src="base/img/co.png" alt="CO">
+                        </div>
+                        <div class="boxs box1">
+                            <h5>SO<sub>2</sub></h5>
+                            <h6 class="value">10 ppm</h6>
+                            <img class="icon" width="75px" height="75px" src="base/img/so2 (2).png" alt="SO2">
+                        </div>
                     </div>
-                <div class="bottom">
-                <div class="boxs box1">
-                    <h5>PM2.5</h5>
-                    <h6 class="value">15 µg/m³</h6>
-                    <img class="icon" width="75px" height="75px" src="{% static 'base/img/pm25.png' %}" alt="PM2.5">
-                </div>
-                <div class="boxs box1">
-                    <h5>Ozone</h5>
-                    <h6 class="value">20 ppb</h6>
-                    <img class="icon" width="75px" height="75px" src="{% static 'base/img/ozone.png' %}" alt="Ozone">
-                </div>
+                    <div class="bottom">
+                        <div class="boxs box1">
+                            <h5>PM2.5</h5>
+                            <h6 class="value">15 µg/m³</h6>
+                            <img class="icon" width="75px" height="75px" src="base/img/pm25.png" alt="PM2.5">
+                        </div>
+                        <div class="boxs box1">
+                            <h5>Ozone</h5>
+                            <h6 class="value">20 ppb</h6>
+                            <img class="icon" width="75px" height="75px" src="base/img/ozone.png" alt="Ozone">
+                        </div>
                     </div>
+                </div>
             </div>
-        </div>
         </div>
         <div class="flashcard-container">
             <div class="carousel" id="carousel">
-                <a >
+                <a>
                     <div class="flashcard flashcard1">
                         <h1>MUMBAI</h1>
                         <h1>AQI 96</h1>
                     </div>
                 </a>
-                <a >
+                <a>
                     <div class="flashcard flashcard2">
                         <h1>PUNE</h1>
                         <h1>AQI 116</h1>
                     </div>
                 </a>
-                <a >
+                <a>
                     <div class="flashcard flashcard3">
                         <h1>DELHI</h1>
                         <h1>AQI 96</h1>
                     </div>
                 </a>
-                <a >
+                <a>
                     <div class="flashcard flashcard4">
                         <h1>BHILAI</h1>
                         <h1>AQI 96</h1>
                     </div>
                 </a>
-                <a >
+                <a>
                     <div class="flashcard flashcard5">
                         <h1>AGRA</h1>
                         <h1>AQI 96</h1>
                     </div>
                 </a>
-                <a >
+                <a>
                     <div class="flashcard flashcard6">
                         <h1>CHENNAI</h1>
                         <h1>AQI 96</h1>
                     </div>
                 </a>
+            </div>
         </div>
     </main>
     <footer>
@@ -155,7 +135,7 @@
     </footer>
     <script src="https://unpkg.com/@turf/turf/turf.min.js"></script>
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
-    <script src="{% static 'base/js/app.js' %}"></script>
-    <script src="{% static 'base/js/bus.js' %}"></script>
+    <script src="base/js/app.js"></script>
+    <script src="base/js/bus.js"></script>
 </body>
 </html>
