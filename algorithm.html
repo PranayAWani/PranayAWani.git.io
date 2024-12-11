@@ -8,12 +8,27 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
-<header>
-    <div class="company-info">
-        <div class="company-name">VAYU</div>
-        <div class="slogan">BUILD TO BREATHE CLEAN</div>
-    </div>
-</header>
+    <header>
+        <div class="company-info">
+            <img src="logo.jpg" alt="VAYU Logo" class="company-logo"> <!-- Added company logo -->
+            <div class="company-details">
+                <span class="company-name">VAYU</span>
+                <span class="slogan">BUILD TO BREATH CLEAN</span>
+            </div>
+        </div>
+        <div id="google_translate_element" class="translation-container"></div>
+        <div class="font-size-buttons">
+            <button onclick="setFontSize('small')" class="font-size-button">A-</button>
+            <button onclick="setFontSize('normal')" class="font-size-button">A</button>
+            <button onclick="setFontSize('large')" class="font-size-button">A+</button>
+        </div>
+    </header>
+    <nav>
+        <div class="nav-content">
+            <div class="box box1"><a href="algorithm.html">Home</a></div>
+            <div class="box box2"><a href="map.html">Map</a></div>
+        </div>
+    </nav>
 <main>
     <div class="mlalgo">
         <div class="heading">
@@ -25,7 +40,41 @@
                 <div class="top">
                     <div class="value">
                         <h2>Carbon Monoxide</h2>
-                        <button class="plot-button" data-param="Carbon Monoxide">Plot Graph</button>
+                        <p>1234</p>
+                    </div>
+                    <div class="graph">
+                        <h2>Graph</h2>
+                        <div class="graph-container">[Graph Placeholder]</div>
+                    </div>
+                </div>
+                <div class="table">
+                    <div class="box">
+                        <div class="day">Monday</div>
+                        <div class="dayval">Value: 100</div>
+                    </div>
+                    <div class="box">
+                        <div class="day">Tuesday</div>
+                        <div class="dayval">Value: 120</div>
+                    </div>
+                    <div class="box">
+                        <div class="day">Wednesday</div>
+                        <div class="dayval">Value: 110</div>
+                    </div>
+                    <div class="box">
+                        <div class="day">Thursday</div>
+                        <div class="dayval">Value: 130</div>
+                    </div>
+                    <div class="box">
+                        <div class="day">Friday</div>
+                        <div class="dayval">Value: 140</div>
+                    </div>
+                    <div class="box">
+                        <div class="day">Saturday</div>
+                        <div class="dayval">Value: 150</div>
+                    </div>
+                    <div class="box">
+                        <div class="day">Sunday</div>
+                        <div class="dayval">Value: 160</div>
                     </div>
                 </div>
             </div>

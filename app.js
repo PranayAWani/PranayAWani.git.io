@@ -49,8 +49,9 @@ const busStops = [
     {"name": "Jamia Millia Islamia Bus Stop", "lat": 28.5615, "lng": 77.2812, "aqi": 115, "historicalData": [112, 118, 120, 116, 114, 115, 117]},
     {"name": "Govindpuri Bus Stop", "lat": 28.5320, "lng": 77.2561, "aqi": 110, "historicalData": [108, 112, 115, 109, 111, 110, 113]},
     {"name": "Badarpur Border Bus Stop", "lat": 28.4941, "lng": 77.2901, "aqi": 125, "historicalData": [122, 128, 130, 126, 124, 125, 127]},
-    {"name": "Mehrauli Bus Stop", "lat": 28.5273, "lng": 77.1854, "aqi": 105, "historicalData": [102, 108, 110, 106, 104, 105, 107]},   
-    // Add other bus stops...
+    {"name": "Mehrauli Bus Stop", "lat": 28.5273, "lng": 77.1854, "aqi": 105, "historicalData": [102, 108, 110, 106, 104, 105, 107]},
+
+    // Additional stops...
 ];
 
 // Marker reference for clearing previous markers
@@ -118,24 +119,6 @@ function searchItems() {
 document.getElementById('search-input').addEventListener('keyup', searchItems);
 
 // Function to display AQI graph
-function showAQI(busStopName) {
-    // Find the bus stop by name
-    const busStop = busStops.find(stop => stop.name === busStopName);
-    
-    if (busStop) {
-        // Update AQI display
-        const aqiContainer = document.querySelector('#chart-container .aqi');
-        aqiContainer.textContent = `AQI at ${busStop.name}: ${busStop.aqi}`;
-        
-        // Make the container visible
-        const chartContainer = document.getElementById('chart-container');
-        chartContainer.style.display = 'flex';
-    } else {
-        console.error('Bus stop not found');
-    }
-}
-
-
 function showAQIGraph(stopName) {
     const stop = busStops.find(s => s.name === stopName);
     if (!stop || !stop.historicalData) {
@@ -192,11 +175,5 @@ document.addEventListener('click', event => {
     }
 });
 
-function updateAQI(aqiValue) {
-    const aqiContainer = document.querySelector('#chart-container .aqi');
-    aqiContainer.textContent = `AQI: ${aqiValue}`;
-    document.getElementById('chart-container').style.display = 'flex'; // Show the container
-}
-
-// Example usage
-updateAQI(125); // Replace with real AQI value
+// Hide the chart container initially
+document.getElementById('chart-container').style.display = 'none';
