@@ -1,11 +1,20 @@
+main {
+    height: 80vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
 .map {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    height: 90vh;
+    height: 100vh;
     width: 100%;
-    margin: auto;
+    /* margin: auto; */
     position: relative;
     border-radius: 20px;
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
@@ -34,8 +43,8 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     outline: none;
     position: absolute;
-    top: 100px;
-    left: 20px; /* Align to the left */
+    top: 15vh;
+    left: 2vw;
     z-index: 2;
     transition: all 0.3s ease-in-out;
 }
@@ -46,28 +55,24 @@
     transform: scale(1.05);
 }
 
-/* Search Results Dropdown */
 #search-results {
     width: 100%;
     max-width: 300px;
     position: absolute;
-    top: 70px;
+    top: 20vh;
+    left: 2vw;
     z-index: 3;
     list-style-type: none;
     padding: 0;
     margin: 0;
-    top: 140px;
-    left: 20px;
     background: #ffffff;
     border-radius: 15px;
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
     border: 1px solid #e0e0e0;
     overflow-y: auto;
     max-height: 300px;
-    /* border: radius bottom 20px; */
 }
 
-/* Styling each search result */
 #search-results li {
     padding: 12px;
     cursor: pointer;
@@ -78,13 +83,11 @@
     font-weight: 500;
 }
 
-/* Hover effect for search results */
 #search-results li:hover {
     background-color: #f7faff;
     transform: translateX(5px);
 }
 
-/* Empty results message styling */
 #search-results li.no-results {
     text-align: center;
     color: #888888;
@@ -92,7 +95,6 @@
     padding: 12px;
 }
 
-/* Custom Styling for Map Overlay */
 .map::before {
     content: '';
     position: absolute;
@@ -105,21 +107,58 @@
     pointer-events: none;
     opacity: 0.5;
 }
-
-/* Floating Labels (Optional for Additional Information) */
-#map .label {
-    position: absolute;
-    z-index: 4;
-    background: #ffffff;
-    color: #333333;
-    padding: 8px 12px;
-    font-size: 14px;
-    font-weight: bold;
+#chart-container {
+    display: none; /* Initially hidden */
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 400px;
+    height: 400px;
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background-color: rgba(255, 255, 255, 0.9);
+    border: 2px solid #007bff;
     border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+    color: #333;
 }
 
-/* Adjustments for Mobile View */
+#chart-container .aqi {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #007bff;
+}
+
+#chart-container a {
+    margin-top: 15px;
+    text-decoration: none;
+    font-size: 18px;
+    color: #007bff;
+    border: 1px solid #007bff;
+    border-radius: 5px;
+    padding: 8px 12px;
+    background-color: #f9f9f9;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+#chart-container a:hover {
+    background-color: #007bff;
+    color: white;
+}
+
+#aqi-chart {
+    max-width: 100%;
+    height: auto;
+    margin-top: 20px;
+}
+
+/* 
+/* Mobile Adjustments */
 @media (max-width: 768px) {
     .map {
         height: 80vh;
@@ -129,11 +168,19 @@
 
     #search-input {
         max-width: 90%;
-        margin-top: 10px;
+        margin: 10px auto;
+        left: 5vw;
     }
 
     #search-results {
         max-width: 90%;
-        top: 60px;
+        left: 5vw;
     }
-}
+
+    #chart-container {
+        width: 90%;
+        height: 50vh;
+        top: 20vh;
+        right: 5vw;
+    }
+} */

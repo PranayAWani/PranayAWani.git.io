@@ -7,39 +7,30 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="darkmode.css">
-    <title>AQI Index Monitor</title>
-    <script type="text/javascript">
-        function googleTranslateElementInit() {
-            new google.translate.TranslateElement({
-                pageLanguage: 'en',
-                includedLanguages: 'en,hi,bn,te,ta,ml,pa,mr,gu,ur,kn,or,as,ma,ne,sid,bo,sa,ckb,km,guw,mlt,sd,si',
-            }, 'google_translate_element');
-        }
-    </script>
-    <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <title>AQI Index Monitor</title>
 </head>
 <body>
     <header>
         <div class="company-info">
-            <div class="company-name">Hardware Express</div>
-            <div class="slogan">BUILD TO BREATHE CLEAN</div>
+            <img src="logo.jpg" alt="VAYU Logo" class="company-logo"> <!-- Added company logo -->
+            <div class="company-details">
+                <span class="company-name">VAYU</span>
+                <span class="slogan">BUILD TO BREATH CLEAN</span>
+            </div>
         </div>
-        <div id="google_translate_element"></div>
+        <div id="google_translate_element" class="translation-container"></div>
         <div class="font-size-buttons">
-            <button onclick="setFontSize('small')">A-</button>
-            <button onclick="setFontSize('normal')">A</button>
-            <button onclick="setFontSize('large')">A+</button>
-            <button id="login-button">Login</button>
+            <button onclick="setFontSize('small')" class="font-size-button">A-</button>
+            <button onclick="setFontSize('normal')" class="font-size-button">A</button>
+            <button onclick="setFontSize('large')" class="font-size-button">A+</button>
         </div>
     </header>
     <nav>
-        <div class="leftcont">
-            <div class="box box1"><a href="home.html">Home</a></div>
+        <div class="nav-content">
+            <div class="box box1"><a href="index.html">Home</a></div>
             <div class="box box2"><a href="map.html">Map</a></div>
-        </div>
-        <div class="rightcont">
         </div>
     </nav>
     <main>
@@ -52,40 +43,30 @@
                         <div class="aqi-status">Poor</div>
                     </div>
                 </div>
-                <div class="bar-container">
-                    <div class="bar">
-                        <div class="indicator" style="left: 50%;"></div>
-                    </div>
-                </div>
             </div>
-            <div class="container">
                 <div class="detailed">
-                    <div class="top">
                         <div class="boxs box1">
                             <h5>CO</h5>
                             <h6 class="value">5 ppm</h6>
-                            <img class="icon" width="75px" height="75px" src="base/img/co.png" alt="CO">
+                            <img class="icon" width="75px" height="75px" src="co.png" alt="CO">
                         </div>
                         <div class="boxs box1">
                             <h5>SO<sub>2</sub></h5>
                             <h6 class="value">10 ppm</h6>
-                            <img class="icon" width="75px" height="75px" src="base/img/so2 (2).png" alt="SO2">
+                            <img class="icon" width="75px" height="75px" src="so2 (2).png" alt="SO2">
                         </div>
-                    </div>
-                    <div class="bottom">
                         <div class="boxs box1">
                             <h5>PM2.5</h5>
                             <h6 class="value">15 µg/m³</h6>
-                            <img class="icon" width="75px" height="75px" src="base/img/pm25.png" alt="PM2.5">
+                            <img class="icon" width="75px" height="75px" src="pm25.png" alt="PM2.5">
                         </div>
                         <div class="boxs box1">
                             <h5>Ozone</h5>
                             <h6 class="value">20 ppb</h6>
-                            <img class="icon" width="75px" height="75px" src="base/img/ozone.png" alt="Ozone">
+                            <img class="icon" width="75px" height="75px" src="ozone.png" alt="Ozone">
                         </div>
-                    </div>
-                </div>
             </div>
+            
         </div>
         <div class="flashcard-container">
             <div class="carousel" id="carousel">
@@ -133,9 +114,5 @@
             <p>&copy; 2024 AQI Index Monitor. All rights reserved.</p>
         </div>
     </footer>
-    <script src="https://unpkg.com/@turf/turf/turf.min.js"></script>
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
-    <script src="base/js/app.js"></script>
-    <script src="base/js/bus.js"></script>
 </body>
 </html>

@@ -21,16 +21,17 @@
 <body>
     <header>
         <div class="company-info">
-            <div class="company-name">Hardware Express</div>
-            <div class="slogan">BUILD TO BREATH CLEAN</div>
+            <img src="logo.jpg" alt="VAYU Logo" class="company-logo"> <!-- Added company logo -->
+            <div class="company-details">
+                <span class="company-name">VAYU</span>
+                <span class="slogan">BUILD TO BREATH CLEAN</span>
+            </div>
         </div>
-        <div id="google_translate_element"></div>
-        <div class="font-size-buttons">       
-            <button onclick="setFontSize('small')">A-</button> 
-            <button onclick="setFontSize('normal')">A</button> 
-            <button onclick="setFontSize('large')">A+</button> 
-            <button id="toggle-mode">Light Mode</button>
-            <button id="login-button">Login</button>
+        <div id="google_translate_element" class="translation-container"></div>
+        <div class="font-size-buttons">
+            <button onclick="setFontSize('small')" class="font-size-button">A-</button>
+            <button onclick="setFontSize('normal')" class="font-size-button">A</button>
+            <button onclick="setFontSize('large')" class="font-size-button">A+</button>
         </div>
     </header>
     <main>
@@ -39,8 +40,12 @@
             <div class="form">
                 <input type="text" id="email" placeholder="Enter Email" required>
                 <input type="password" id="password" placeholder="Enter Password" required>
+                <label style="width:min-content; display: flex; flex-direction:row "    >
+                    <input  type="checkbox" id="remember-me"> Remember Me
+                </label>
                 <button id="login-email">Login</button>
                 <button id="google-login">Login with Google</button>
+                <a href="#" id="forgot-password">Forgot Password?</a>
             </div>
             <div id="error-message" style="color: red; margin-top: 10px;"></div>
         </div>
@@ -55,18 +60,18 @@
     <script type="module">
         // Import Firebase SDKs
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-app.js";
-        import { getAuth, signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-auth.js";
+        import { getAuth, signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider, sendPasswordResetEmail } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-auth.js";
 
-        // Your Firebase Configuration
-        const firebaseConfig = {
-            apiKey: "AIzaSyCPVKX0xD12qUuZUsVMJML3ziYmM_zG27U",
-            authDomain: "hardware-c4141.firebaseapp.com",
-            projectId: "hardware-c4141",
-            storageBucket: "hardware-c4141.appspot.com",
-            messagingSenderId: "952737919097",
-            appId: "1:952737919097:web:4fc7c24e916a2106d5a4a8",
-            measurementId: "G-NSLYTPT3NC"
-        };
+       // Your Firebase Configuration
+       const firebaseConfig = {
+        apiKey: "AIzaSyCPVKX0xD12qUuZUsVMJML3ziYmM_zG27U",
+        authDomain: "hardware-c4141.firebaseapp.com",
+        projectId: "hardware-c4141",
+        storageBucket: "hardware-c4141.appspot.com",
+        messagingSenderId: "952737919097",
+        appId: "1:952737919097:web:4fc7c24e916a2106d5a4a8",
+        measurementId: "G-NSLYTPT3NC"
+        };
 
         // Initialize Firebase
         const app = initializeApp(firebaseConfig);
@@ -76,9 +81,14 @@
         document.getElementById('login-email').addEventListener('click', async () => {
             const email = document.getElementById('email').value;
             const password = document.getElementById('password').value;
+            const rememberMe = document.getElementById('remember-me').checked;
 
             try {
                 const userCredential = await signInWithEmailAndPassword(auth, email, password);
+                if (rememberMe) {
+                    localStorage.setItem('userEmail', email);
+                    localStorage.setItem('userPassword', password);
+                }
                 alert("Login successful!");
                 console.log("User:", userCredential.user);
                 window.location.href = "index.html"; // Redirect to homepage
@@ -98,6 +108,33 @@
                 window.location.href = "index.html"; // Redirect to homepage
             } catch (error) {
                 document.getElementById('error-message').innerText = error.message;
+            }
+        });
+
+        // Forgot Password
+        document.getElementById('forgot-password').addEventListener('click', async () => {
+            const email = document.getElementById('email').value;
+
+            if (email) {
+                try {
+                    await sendPasswordResetEmail(auth, email);
+                    alert("Password reset email sent!");
+                } catch (error) {
+                    document.getElementById('error-message').innerText = error.message;
+                }
+            } else {
+                document.getElementById('error-message').innerText = "Please enter your email address.";
+            }
+        });
+
+        // Auto-fill credentials if remember me was checked
+        document.addEventListener('DOMContentLoaded', () => {
+            const storedEmail = localStorage.getItem('userEmail');
+            const storedPassword = localStorage.getItem('userPassword');
+            if (storedEmail && storedPassword) {
+                document.getElementById('email').value = storedEmail;
+                document.getElementById('password').value = storedPassword;
+                document.getElementById('remember-me').checked = true;
             }
         });
     </script>

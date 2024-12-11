@@ -1,3 +1,4 @@
+
 body, h1, h2, p, a, button {
     margin: 0;
     padding: 0;
@@ -25,34 +26,6 @@ main {
     padding: 1rem;
     position: relative; /* To position scroll buttons */
 }
-
-/*.map {*/
-/*    display: flex;*/
-/*        flex-direction: column;*/
-/*        align-items: flex-end;*/
-/*        justify-content: center;*/
-/*        height: 50vh;*/
-/*        width: 100%;*/
-/*        z-index: -1;*/
-/*        margin: -20px;*/
-/*        padding: 0;*/
-/*        position: absolute;*/
-/*        !* border-radius: 20px; *!*/
-/*        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);*/
-/*        overflow: hidden;*/
-/*        background: linear-gradient(135deg, #f0f4ff, #e6eefc);*/
-/*        !* border: 1px solid #e0e0e0; *!*/
-/*        flex-wrap: nowrap;*/
-/*        overflow: hidden;*/
-/*}*/
-
-/*#map {*/
-/*    width: 100%;*/
-/*    height: 100%;*/
-/*    position: relative;*/
-/*    z-index: 0;*/
-/*    !*overflow: hidden;*!*/
-/*}*/
 
 .fullscreen {
     position: absolute;
@@ -86,7 +59,7 @@ main {
     /* background-color: #2c3e50;*/
     border-radius: 10px;
     margin: auto;
-    height: 50vh;
+    height: 25vh;
     /*max-width: 1600px;*/
     width: 100%;
     justify-content: space-between;
@@ -99,10 +72,10 @@ main {
     /*background: green;*/
     border-radius: 8px;
     box-shadow: 0 4px 6px rgba(255, 170, 0, 0.3);
-    /*margin: 0px auto;*/
-    padding: 16px;
+    margin: 5px;
+    padding: 5px;
     /*margin-top: 25vh;*/
-    width: 50vw;
+    width: max-content;
     font-family: 'Arial', sans-serif;
     color: #ffffff; /* White Text */
     display: flex;
@@ -135,7 +108,7 @@ main {
 .aqi-display {
     background: linear-gradient(135deg, #30cfd0, #34495e);
     color: #ffffff;
-    padding: 20px;
+    padding: auto;
     border-radius: 10px;
     display: flex;
     justify-content: space-around;
@@ -156,23 +129,6 @@ main {
 .aqi-status {
     font-size: 24px;
     margin: 0 10px;
-}
-
-.pm-values {
-    background: linear-gradient(135deg, #ff7e00, #34495e); /* Orange and Dark Blue */
-    color: #ffffff;
-    padding: 20px;
-    border-radius: 10px;
-    margin-top: 20px;
-    width: 20vw;
-    animation: slideIn 1s ease-out;
-    display: flex;
-    flex-direction: row;
-    align-content: center;
-    justify-content: space-around;
-    align-items: center;
-    margin: 20px 25px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
 }
 
 .pm-values div {
@@ -204,19 +160,14 @@ main {
     border-radius: 3px;
     transition: left 0.3s ease;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-}
+} 
 
 .detailed{
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    grid-gap: 50px;
-    margin: 20px auto;
-    width: 100%;
-    height: 100%;
-    max-width: 1200px;
-    padding: 15px;
-    border-radius: 10px;
-    height: 150px;
+    display: flex;
+    flex-direction: row;
+    align-content: center;
+    justify-content: center;
+
 
 }
 
@@ -224,40 +175,14 @@ main {
     width: 50vw;
 }
 
-.container .detailed{
-    display: flex;
-    flex-direction: row;
-    align-content: center;
-    justify-items: center;
-    justify-self: center;
-    margin: 20px auto;
-    width: 50%;
-    max-width: 1200px;
-    padding: 15px;
-    border-radius: 10px;
-    height: 150px;
-    justify-items: center;
-    align-items: center;
-    justify-content: center;
-    align-content: center;
-    gap: 25px;
+.detailed{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr;
+    margin: auto;
+    padding: 10;
+    gap: 10px;
 }
-.container .detailed .top{
-    height: 200px;
-}
-
-.container .detailed .bottom{
-    height: 200px;
-}
-
-.container .detailed .top .boxs{
-    width: 200px;
-}
-
-.container .detailed .bottom .bos{
-    width: 200px;
-}
-
 
 .boxs {
     background-color: #000000; /* Dark Blue-Gray */
@@ -271,6 +196,8 @@ main {
     height: 100px;
     flex-direction: column;
     align-items: center;
+    margin: auto;
+    width: 150px;
 }
 
 
@@ -421,27 +348,27 @@ main {
 
 /* Specific backgrounds for slides */
 .flashcard1 {
-    background-image: url('../img/gateway.png');
+    background-image: url('gateway.png');
 }
 
 .flashcard2 {
-    background-image: url('../img/pune.png');
+    background-image: url('pune.png');
 }
 
 .flashcard3 {
-    background-image: url('../img/delhi.jpeg');
+    background-image: url('delhi.jpeg');
 }
 
 .flashcard4 {
-    background-image: url('../img/bhilai.png');
+    background-image: url('bhilai.png');
 }
 
 .flashcard5 {
-   background-image: url('../img/agra.jpg');
+   background-image: url('agara.jpg');
 }
 
 .flashcard6 {
-    background-image: url('../img/chennai.jpg');
+    background-image: url('chennai.jpg');
 }
 
 /* Full-page scrolling animation */

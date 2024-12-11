@@ -22,46 +22,39 @@
 <body>
     <header>
         <div class="company-info">
-            <div class="company-name">Hardware Express</div>
-            <div class="slogan">BUILD TO BREATH CLEAN</div>
+            <img src="logo.jpg" alt="VAYU Logo" class="company-logo"> <!-- Added company logo -->
+            <div class="company-details">
+                <span class="company-name">VAYU</span>
+                <span class="slogan">BUILD TO BREATH CLEAN</span>
+            </div>
         </div>
-        <div id="google_translate_element"></div>
-        <div class="font-size-buttons"> 
-            <button onclick="setFontSize('small')">A-</button> 
-            <button onclick="setFontSize('normal')">A</button> 
-            <button onclick="setFontSize('large')">A+</button> 
-            <button id="toggle-mode">Light Mode</button>
-            <button id="login-button">Login</button>
+        <div id="google_translate_element" class="translation-container"></div>
+        <div class="font-size-buttons">
+            <button onclick="setFontSize('small')" class="font-size-button">A-</button>
+            <button onclick="setFontSize('normal')" class="font-size-button">A</button>
+            <button onclick="setFontSize('large')" class="font-size-button">A+</button>
         </div>
     </header>
     <nav>
-        <div class="leftcont"> 
-            <div class="box box1"><a href="index.html">Home</a></div> 
-            <div class="box box2"><a href="solution.html">Solutions</a></div> 
-            <div class="box box3"><a href="contact.html">Contact</a></div> 
-            <div class="box box4"><a href="project_details.html">Project Details</a></div>
-            <div class="box box5"><a href="aboutus.html">About Us</a></div>
-        </div>
-        <div class="search-container"> 
-            <input type="text" id="city-search" placeholder="Search for a city..."> 
-        </div>
-        <div class="rightcont">
-            <div class="box box1"><a href="faq.html">FAQs</a></div>
-            <div class="box box2"><a href="support.html">Support</a></div>
+        <div class="nav-content">
+            <div class="box box1"><a href="index.html">Home</a></div>
+            <div class="box box2"><a href="map.html">Map</a></div>
         </div>
     </nav>
 
     <main>
-        <div class="map">
-            <!-- <h1>Bus Stops</h1> -->
-            <input type="text" id="search-input" placeholder="Search..." onkeyup="searchItems()">
-            <ul id="search-results"></ul>
-            <div id="map"></div>
-            <div id="chart-container" style="display: none;">
-                <canvas id="aqi-chart"></canvas>
-                <button onclick="showAQIGraph('${stop.name}')">View AQI Graph</button>
-            </div>
+        <div>
+            <input id="search-input" type="text" placeholder="Search bus stops" />
+            <ul id="search-results" style="display: none;"></ul>
         </div>
+        
+        <div id="chart-container" style="display: none; width: 400px; height: 400px; position:fixed right:0px;  ">
+            <div class="aqi"></div>
+            <canvas id="aqi-chart"></canvas>
+            <a href="algorithm.html">Prediction</a>
+        </div>
+        
+        <div id="map" class="map" style="height: 500px;"></div>
     </main>
     <footer>
         <div class="footer-content">
@@ -69,14 +62,75 @@
         </div>
     </footer>
     <script src="https://unpkg.com/@turf/turf/turf.min.js"></script>
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<div id="chart-container" style="display: none;">
-    <canvas id="aqi-chart"></canvas>
-</div>
-
     <script src="app.js"></script>
     <script src="bus.js"></script>
     <script src="darkmode.js"></script>
+    <script>
+    
+function showAQIGraph(stopName) {
+    const stop = busStops.find(s => s.name === stopName);
+    if (!stop || !stop.historicalData) {
+        alert("No historical data available.");
+        return;
+    }
+
+    const chartContainer = document.getElementById('chart-container');
+    const ctx = document.getElementById('aqi-chart').getContext('2d');
+
+    // Display the chart container
+    chartContainer.style.display = 'block';
+
+    // Destroy any existing chart instance
+    if (window.aqiChart) {
+        window.aqiChart.destroy();
+    }
+
+    // Create a new chart
+    window.aqiChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: ['Day 1', 'Day 2', 'Day 3', 'Day 4', 'Day 5'], // Example labels
+            datasets: [{
+                label: `AQI for ${stop.name}`,
+                data: stop.historicalData,
+                borderColor: 'rgba(75, 192, 192, 1)',
+                backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                fill: true,
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: { display: true },
+                tooltip: { enabled: true },
+            },
+            scales: {
+                x: { title: { display: true, text: 'Days' } },
+                y: { title: { display: true, text: 'AQI Value' } }
+            }
+        }
+    });
+}
+
+// Reset the search box when clicking outside
+document.addEventListener('click', event => {
+    const searchInput = document.getElementById('search-input');
+    const searchResults = document.getElementById('search-results');
+    if (!searchInput.contains(event.target) && !searchResults.contains(event.target)) {
+        searchInput.value = ''; // Clear search box
+        searchResults.innerHTML = ''; // Clear results
+        searchResults.style.display = 'none'; // Hide search results
+    }
+});
+
+// Trigger the search function on keyup
+document.getElementById('search-input').addEventListener('keyup', searchItems);
+
+// Initialize search results on page load (optional)
+document.addEventListener('DOMContentLoaded', searchItems);
+
+
+    </script>    
 </body>
 </html>

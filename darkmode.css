@@ -53,63 +53,81 @@ body.small-font {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
 }
 
-/* Header */
+
 header {
-    background-color: var(--header-background);
-    height: 60px;
+    background: #000000;
+    padding: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    height: 7vh;
+}
+
+.company-info {
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    padding: 0 20px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-header h1 {
-    font-size: 2rem;
-    color: var(--text-color);
-}
-
-.header-buttons {
-    display: flex;
-    gap: 10px;
-}
-
-header button {
-    background-color: var(--nav-background);
-    color: var(--nav-text-color);
-    border: none;
-    padding: 10px 20px;
-    cursor: pointer;
+.company-logo {
+    width: 35px;
+    margin-right: 10px;
     border-radius: 5px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
-/* Company Info */
-.company-info {
+.company-details {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    justify-content: space-around;
 }
 
-.company-info .company-name {
-    font-size: 1.5em;
-    color: var(--text-color);
+.company-name {
+    font-size: 22px;
     font-weight: bold;
+    margin: 0;
+    white-space: nowrap; /* Prevents the name from breaking to a new line */
 }
 
-.company-info .slogan {
-    font-size: 0.5em;
-    color: var(--text-color);
-    font-style: italic;
+.slogan {
+    font-size: 14px;
+    margin: 0;
+    color: #c1c7d0;
 }
 
+.translation-container {
+    flex-grow: 1;
+    text-align: center;
+}
+
+.font-size-buttons {
+    display: flex;
+    gap: 5px;
+}
+
+.font-size-button {
+    background: #3a6073;
+    border: none;
+    color: #fff;
+    padding: 5px 10px;
+    cursor: pointer;
+    border-radius: 3px;
+    transition: background-color 0.3s;
+}
+
+.font-size-button:hover {
+    background: #2b3a4b;
+
+}
 /* Navigation */
-nav {
+.nav-content {
     margin: 0;
     padding: 10px 5px;
-    height: 50px;
+    height: 5vh;
     width: 100%;
     background-color: var(--nav-background);
     display: flex;
@@ -118,22 +136,23 @@ nav {
     border-bottom: 2px solid var(--nav-text-color);
 }
 
-nav a {
+.nav-content a {
     color: var(--nav-text-color);
     text-decoration: none;
     cursor: pointer;
 }
 
-nav .leftcont,
-nav .rightcont {
+.nav-content .leftcont,
+.nav-content .rightcont {
     display: flex;
     align-items: center;
 }
 
-nav .box {
+.nav-content .box {
     padding: 10px 20px;
     text-align: center;
     display: flex;
+    flex-direction: row;
     align-items: center;
     justify-content: center;
     transition: background-color 0.3s ease;
@@ -142,17 +161,17 @@ nav .box {
     border-radius: 5px;
 }
 
-nav .box:hover {
+.nav-content .box:hover {
     background-color: var(--nav-hover-background);
 }
 
-nav .search-container {
+.nav-content .search-container {
     flex-grow: 1;
     display: flex;
     justify-content: center;
 }
 
-nav #city-search {
+.nav-content #city-search {
     width: 50%;
     padding: 0.2rem;
     border: 1px solid var(--text-color);
@@ -164,13 +183,15 @@ nav #city-search {
 
 /* Footer */
 footer {
-    background-color: var(--footer-background);
+    /* background-color: var(--footer-background); */
     padding: 18px;
     text-align: center;
     color: var(--text-color);
     position: static;
     bottom: 0;
     width: 100%;
+    align-content: center;
+    height: 50px;
 }
 
 /* Google Translate Styling */

@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="algorithm.css">
+    <title>AQI Index Monitor</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+<header>
+    <div class="company-info">
+        <div class="company-name">VAYU</div>
+        <div class="slogan">BUILD TO BREATHE CLEAN</div>
+    </div>
+</header>
+<main>
+    <div class="mlalgo">
+        <div class="heading">
+            <h1>7-Day Prediction</h1>
+        </div>
+        <div class="container">
+            <!-- Each section for parameters -->
+            <div class="boxes box1">
+                <div class="top">
+                    <div class="value">
+                        <h2>Carbon Monoxide</h2>
+                        <button class="plot-button" data-param="Carbon Monoxide">Plot Graph</button>
+                    </div>
+                </div>
+            </div>
+            <div class="boxes box2">
+                <div class="top">
+                    <div class="value">
+                        <h2>Sulfur Dioxide</h2>
+                        <button class="plot-button" data-param="Sulfur Dioxide">Plot Graph</button>
+                    </div>
+                </div>
+            </div>
+            <!-- Add more sections as needed -->
+        </div>
+        <div id="chart-container" style="display: none;">
+            <canvas id="paramGraph"></canvas>
+        </div>
+    </div>
+</main>
+<script>
+    let parameterData = {};
+    const days = [];
+
+    // Fetch the CSV file and parse its content
+    async function loadCSVData() {
+        const response = await fetch('150_bus_stops_aqi_data.csv');
+        const csvText = await response.text();
+
+        const rows = csvText.split('\n').map(row => row.split(','));
+        const headers = rows[0]; // Extract headers
+        rows.slice(1).forEach(row => {
+            const day = row[0];
+            days.push(day); // Collect days
+            headers.slice(1).forEach((header, index) => {
+                if (!parameterData[header]) parameterData[header] = [];
+                parameterData[header].push(Number(row[index + 1]));
+            });
+        });
+    }
+
+    // Load CSV data on page load
+    document.addEventListener('DOMContentLoaded', async () => {
+        await loadCSVData();
+        console.log('Data loaded:', parameterData);
+    });
+
+    // Handle Plot Button Clicks
+    document.querySelectorAll('.plot-button').forEach(button => {
+        button.addEventListener('click', event => {
+            const param = event.target.getAttribute('data-param');
+            showParamGraph(param);
+        });
+    });
+
+    function showParamGraph(param) {
+        const chartContainer = document.getElementById('chart-container');
+        const ctx = document.getElementById('paramGraph').getContext('2d');
+
+        // Display the chart container
+        chartContainer.style.display = 'block';
+
+        // Destroy any existing chart instance
+        if (window.paramChart) {
+            window.paramChart.destroy();
+        }
+
+        // Create a new chart
+        window.paramChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: days,
+                datasets: [{
+                    label: `Levels for ${param}`,
+                    data: parameterData[param],
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    fill: true,
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: { display: true },
+                    tooltip: { enabled: true },
+                },
+                scales: {
+                    x: { title: { display: true, text: 'Days' } },
+                    y: { title: { display: true, text: `${param} Value` } }
+                }
+            }
+        });
+    }
+</script>
+</body>
+</html>

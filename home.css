@@ -1,6 +1,6 @@
 :root {
     --background-color: rgba(248, 249, 250, 0.9);
-    --text-color: #333;
+    --text-color: #333030;
     --header-background: linear-gradient(135deg, #8fcfd1, #00796b);
     --nav-background: rgba(224, 247, 250, 0.9);
     --nav-text-color: #00796b;
@@ -14,9 +14,9 @@
     --shadow-color: rgba(0, 0, 0, 0.2);
 }
 
-[data-theme="dark"] {
-    --background-color: rgba(51, 51, 51, 0.9);
-    --text-color: #f8f9fa;
+/* [data-theme="dark"] {
+    --background-color: rgba(51, 51, 51, 0.9);  
+    --text-color: #2c3236;
     --header-background: linear-gradient(135deg, #444, #222);
     --nav-background: rgba(85, 85, 85, 0.9);
     --nav-text-color: #f8f9fa;
@@ -28,39 +28,19 @@
     --footer-background: linear-gradient(135deg, #444, #111);
     --input-border-color: #777;
     --shadow-color: rgba(0, 0, 0, 0.5);
-}
+} */
 
-* {
+/* * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-}
+} */
 
 body {
     font-family: 'Arial', sans-serif;
     background-color: var(--background-color);
     color: var(--text-color);
     transition: all 0.3s ease;
-}
-
-header {
-    background: var(--header-background);
-    height: 100px;
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    box-shadow: 0 4px 6px var(--shadow-color);
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-}
-
-header h1 {
-    font-size: 2rem;
-    color: var(--text-color);
-    text-shadow: 1px 1px 4px var(--shadow-color);
 }
 
 nav {
@@ -133,7 +113,7 @@ main {
 
 .login-container h2 {
     margin-bottom: 20px;
-    color: var(--text-color);
+    color: rgb(78, 77, 77);
     font-size: 1.5rem;
     text-shadow: 1px 1px 2px var(--shadow-color);
 }
