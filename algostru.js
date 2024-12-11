@@ -1,12 +1,3 @@
-// Initialize the map (centered at a default location)
-const map = L.map('map').setView([28.6139, 77.2090], 12);
-
-// Add OpenStreetMap tiles
-L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-}).addTo(map);
-
-// Array of bus stops with AQI data
 const busStops = [
     {
         "name": "Kashmere Gate ISBT",
@@ -62,7 +53,7 @@ const busStops = [
         "so2": { "current": 8, "historical": [7, 9, 8, 8, 7, 8, 9] },
         "pm25": { "current": 45, "historical": [43, 48, 50, 44, 46, 45, 47] },
         "ozone": { "current": 30, "historical": [28, 32, 31, 29, 30, 30, 31] }
-    },
+    }
     // Add similar entries for the rest of the bus stops
     {
         "name": "Delhi University Bus Stop",
@@ -119,135 +110,5 @@ const busStops = [
         "pm25": { "current": 72, "historical": [70, 75, 78, 74, 73, 72, 74] },
         "ozone": { "current": 30, "historical": [28, 33, 31, 29, 28, 30, 32] }
     }
+    
 ];
-
-document.addEventListener('DOMContentLoaded', () => {
-    createChart('coGraph', 'Carbon Monoxide (CO)', sampleData.CO, 'rgba(255, 99, 132, 1)');
-    createChart('so2Graph', 'Sulfur Dioxide (SO2)', sampleData.SO2, 'rgba(54, 162, 235, 1)');
-    createChart('ozoneGraph', 'Ozone', sampleData.Ozone, 'rgba(75, 192, 192, 1)');
-    createChart('pm25Graph', 'PM2.5', sampleData.PM25, 'rgba(153, 102, 255, 1)');
-});
-
-// Marker reference for clearing previous markers
-let currentMarker = null;
-
-// Search functionality
-function searchItems() {
-    const query = document.getElementById('search-input').value.toLowerCase();
-    const results = busStops.filter(stop => stop.name.toLowerCase().includes(query));
-
-    const searchResults = document.getElementById('search-results');
-    searchResults.innerHTML = ''; // Clear previous results
-
-    if (query.trim() === '') {
-        searchResults.style.display = 'none'; // Hide search results if no query
-        return;
-    }
-
-    searchResults.style.display = 'block'; // Show search results
-    if (results.length === 0) {
-        const noResult = document.createElement('li');
-        noResult.textContent = 'No bus stops found.';
-        searchResults.appendChild(noResult);
-        return;
-    }
-
-    results.forEach(stop => {
-        const li = document.createElement('li');
-        li.textContent = stop.name;
-        searchResults.appendChild(li);
-
-        // Add click listener to the search result
-        li.addEventListener('click', () => {
-            // Remove previous marker
-            if (currentMarker) {
-                map.removeLayer(currentMarker);
-            }
-
-            // Center the map on the selected bus stop and add a marker
-            map.setView([stop.lat, stop.lng], 15);
-            currentMarker = L.marker([stop.lat, stop.lng]).addTo(map);
-
-            // Add popup to the marker
-            currentMarker.bindPopup(`
-                <div>
-                    <strong>${stop.name}</strong><br>
-                    AQI: <a href="#" id="popup-aqi" data-name="${stop.name}">
-                        ${stop.aqi}
-                    </a>
-                </div>
-            `).openPopup();
-
-            searchResults.style.display = 'none'; // Hide search results after selecting
-
-            // Attach event listener to popup link
-            document.getElementById('popup-aqi').addEventListener('click', (event) => {
-                event.preventDefault();
-                showAQIGraph(stop.name);
-            });
-        });
-    });
-}
-
-// Attach event listener to the search input
-document.getElementById('search-input').addEventListener('keyup', searchItems);
-
-// Function to display AQI graph
-function showAQIGraph(stopName) {
-    const stop = busStops.find(s => s.name === stopName);
-    if (!stop || !stop.historicalData) {
-        alert("No historical data available.");
-        return;
-    }
-
-    const chartContainer = document.getElementById('chart-container');
-    const ctx = document.getElementById('aqi-chart').getContext('2d');
-
-    // Display the chart container
-    chartContainer.style.display = 'block';
-
-    // Destroy any existing chart instance
-    if (window.aqiChart) {
-        window.aqiChart.destroy();
-    }
-
-    // Create a new chart
-    window.aqiChart = new Chart(ctx, {
-        type: 'line',
-        data: {
-            labels: ['Day 1', 'Day 2', 'Day 3', 'Day 4', 'Day 5', 'Day 6', 'Day 7'],
-            datasets: [{
-                label: `AQI for ${stop.name}`,
-                data: stop.historicalData,
-                borderColor: 'rgba(75, 192, 192, 1)',
-                backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                fill: true,
-            }]
-        },
-        options: {
-            responsive: true,
-            plugins: {
-                legend: { display: true },
-                tooltip: { enabled: true },
-            },
-            scales: {
-                x: { title: { display: true, text: 'Days' } },
-                y: { title: { display: true, text: 'AQI Value' } }
-            }
-        }
-    });
-}
-
-// Reset the search box when clicking outside
-document.addEventListener('click', event => {
-    const searchInput = document.getElementById('search-input');
-    const searchResults = document.getElementById('search-results');
-    if (!searchInput.contains(event.target) && !searchResults.contains(event.target)) {
-        searchInput.value = ''; // Clear search box
-        searchResults.innerHTML = ''; // Clear results
-        searchResults.style.display = 'none'; // Hide search results
-    }
-});
-
-// Hide the chart container initially
-document.getElementById('chart-container').style.display = 'none';

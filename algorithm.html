@@ -4,28 +4,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="algorithm.css">
+    <link rel="stylesheet" href="darkmode.css">
     <title>AQI Index Monitor</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
     <header>
         <div class="company-info">
-            <img src="logo.jpg" alt="VAYU Logo" class="company-logo"> <!-- Added company logo -->
+            <img src="logo.jpg" alt="VAYU Logo" class="company-logo">
             <div class="company-details">
                 <span class="company-name">VAYU</span>
                 <span class="slogan">BUILD TO BREATH CLEAN</span>
             </div>
         </div>
-        <div id="google_translate_element" class="translation-container"></div>
-        <div class="font-size-buttons">
-            <button onclick="setFontSize('small')" class="font-size-button">A-</button>
-            <button onclick="setFontSize('normal')" class="font-size-button">A</button>
-            <button onclick="setFontSize('large')" class="font-size-button">A+</button>
-        </div>
     </header>
     <nav>
         <div class="nav-content">
-            <div class="box box1"><a href="algorithm.html">Home</a></div>
+            <div class="box box1"><a href="index.html">Home</a></div>
             <div class="box box2"><a href="map.html">Map</a></div>
         </div>
     </nav>
@@ -34,122 +29,36 @@
         <div class="heading">
             <h1>7-Day Prediction</h1>
         </div>
-        <div class="container">
-            <!-- Each section for parameters -->
-            <div class="boxes box1">
-                <div class="top">
-                    <div class="value">
-                        <h2>Carbon Monoxide</h2>
-                        <p>1234</p>
-                    </div>
-                    <div class="graph">
-                        <h2>Graph</h2>
-                        <div class="graph-container">[Graph Placeholder]</div>
-                    </div>
-                </div>
-                <div class="table">
-                    <div class="box">
-                        <div class="day">Monday</div>
-                        <div class="dayval">Value: 100</div>
-                    </div>
-                    <div class="box">
-                        <div class="day">Tuesday</div>
-                        <div class="dayval">Value: 120</div>
-                    </div>
-                    <div class="box">
-                        <div class="day">Wednesday</div>
-                        <div class="dayval">Value: 110</div>
-                    </div>
-                    <div class="box">
-                        <div class="day">Thursday</div>
-                        <div class="dayval">Value: 130</div>
-                    </div>
-                    <div class="box">
-                        <div class="day">Friday</div>
-                        <div class="dayval">Value: 140</div>
-                    </div>
-                    <div class="box">
-                        <div class="day">Saturday</div>
-                        <div class="dayval">Value: 150</div>
-                    </div>
-                    <div class="box">
-                        <div class="day">Sunday</div>
-                        <div class="dayval">Value: 160</div>
-                    </div>
-                </div>
-            </div>
-            <div class="boxes box2">
-                <div class="top">
-                    <div class="value">
-                        <h2>Sulfur Dioxide</h2>
-                        <button class="plot-button" data-param="Sulfur Dioxide">Plot Graph</button>
-                    </div>
-                </div>
-            </div>
-            <!-- Add more sections as needed -->
-        </div>
-        <div id="chart-container" style="display: none;">
-            <canvas id="paramGraph"></canvas>
+        <div class="graphs-container">
+            <canvas id="coGraph"></canvas>
+            <canvas id="so2Graph"></canvas>
+            <canvas id="ozoneGraph"></canvas>
+            <canvas id="pm25Graph"></canvas>
         </div>
     </div>
 </main>
 <script>
-    let parameterData = {};
-    const days = [];
+    // Sample dataset for a specific location, replace this with dynamic loading if needed
+    const sampleData = {
+        CO: [5, 6, 7, 6, 5, 4, 6],
+        SO2: [2, 3, 4, 3, 2, 3, 4],
+        Ozone: [12, 15, 14, 13, 15, 16, 15],
+        PM25: [35, 40, 38, 42, 45, 50, 48],
+        days: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
+    };
 
-    // Fetch the CSV file and parse its content
-    async function loadCSVData() {
-        const response = await fetch('150_bus_stops_aqi_data.csv');
-        const csvText = await response.text();
-
-        const rows = csvText.split('\n').map(row => row.split(','));
-        const headers = rows[0]; // Extract headers
-        rows.slice(1).forEach(row => {
-            const day = row[0];
-            days.push(day); // Collect days
-            headers.slice(1).forEach((header, index) => {
-                if (!parameterData[header]) parameterData[header] = [];
-                parameterData[header].push(Number(row[index + 1]));
-            });
-        });
-    }
-
-    // Load CSV data on page load
-    document.addEventListener('DOMContentLoaded', async () => {
-        await loadCSVData();
-        console.log('Data loaded:', parameterData);
-    });
-
-    // Handle Plot Button Clicks
-    document.querySelectorAll('.plot-button').forEach(button => {
-        button.addEventListener('click', event => {
-            const param = event.target.getAttribute('data-param');
-            showParamGraph(param);
-        });
-    });
-
-    function showParamGraph(param) {
-        const chartContainer = document.getElementById('chart-container');
-        const ctx = document.getElementById('paramGraph').getContext('2d');
-
-        // Display the chart container
-        chartContainer.style.display = 'block';
-
-        // Destroy any existing chart instance
-        if (window.paramChart) {
-            window.paramChart.destroy();
-        }
-
-        // Create a new chart
-        window.paramChart = new Chart(ctx, {
+    // Helper function to create a chart
+    function createChart(canvasId, label, data, color) {
+        const ctx = document.getElementById(canvasId).getContext('2d');
+        new Chart(ctx, {
             type: 'line',
             data: {
-                labels: days,
+                labels: sampleData.days,
                 datasets: [{
-                    label: `Levels for ${param}`,
-                    data: parameterData[param],
-                    borderColor: 'rgba(75, 192, 192, 1)',
-                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    label: `${label} Levels`,
+                    data: data,
+                    borderColor: color,
+                    backgroundColor: `${color}33`, // Light version of color
                     fill: true,
                 }]
             },
@@ -161,11 +70,19 @@
                 },
                 scales: {
                     x: { title: { display: true, text: 'Days' } },
-                    y: { title: { display: true, text: `${param} Value` } }
+                    y: { title: { display: true, text: `${label} Value` } }
                 }
             }
         });
     }
+
+    // Render charts for each parameter
+    document.addEventListener('DOMContentLoaded', () => {
+        createChart('coGraph', 'Carbon Monoxide (CO)', sampleData.CO, 'rgba(255, 99, 132, 1)');
+        createChart('so2Graph', 'Sulfur Dioxide (SO2)', sampleData.SO2, 'rgba(54, 162, 235, 1)');
+        createChart('ozoneGraph', 'Ozone', sampleData.Ozone, 'rgba(75, 192, 192, 1)');
+        createChart('pm25Graph', 'PM2.5', sampleData.PM25, 'rgba(153, 102, 255, 1)');
+    });
 </script>
 </body>
 </html>
