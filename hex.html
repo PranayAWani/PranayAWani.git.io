@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bus Stops AQI Map with Honeycomb Grid</title>
+
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+    <!-- Leaflet Search CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet-search/3.0.1/leaflet-search.min.css">
+
+    <!-- Leaflet Search JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-search/3.0.1/leaflet-search.min.js"></script>
+    <link rel="stylesheet" href="darkmode.css">
+    <style>
+        #map {
+            height: 80vh;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    ass="font-size-buttons">
+            <button onclick="setFontSize('small')" class="font-size-button">A-</button>
+            <button onclick="setFontSize('normal')" class="font-size-button">A</button>
+            <button onclick="setFontSize('large')" class="font-size-button">A+</button>
+        </div>
+    </header>
+    <nav>
+        <div class="nav-content">
+            <div class="box box1"><a href="index.html">Home</a></div>
+            <div class="box box2"><a href="map.html">Map</a></div>
+            <div class="box box2"><a href="hex.html">Hex</a></div>
+        </div>
+    </nav>
+    <div id="map"></div>
+
+    <script>
+        // Initialize the map with Delhi's coordinates
+        var map = L.map('map').setView([28.6139, 77.2090], 12); // Delhi Coordinates
+
+        // Add OpenStreetMap tiles
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+            attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors'
+        }).addTo(map);
+
+        // AQI color scale function
+        function aqiToColor(aqi) {
+            if (aqi <= 50) return "#00e400"; // Good (Green)
+            if (aqi <= 100) return "#ffff00"; // Moderate (Yellow)
+            if (aqi <= 150) return "#ff7e00"; // Unhealthy for Sensitive Groups (Orange)
+            if (aqi <= 200) return "#ff0000"; // Unhealthy (Red)
+            if (aqi <= 300) return "#8f3f97"; // Very Unhealthy (Purple)
+            return "#7e0023"; // Hazardous (Maroon)
+        }
+
+        // Convert meters to degrees
+        function metersToDegrees(meters, lat) {
+            const latDeg = meters / 111320;  // Convert meters to degrees for latitude
+            const lonDeg = meters / (111320 * Math.cos(lat * Math.PI / 180));  // Adjust for longitude
+            return [latDeg, lonDeg];
+        }
+
+        // Generate the vertices of a hexagon
+        function generateHexagon(center, radius) {
+            const [latStep, lonStep] = metersToDegrees(radius, center[0]);
+            const angle = Math.PI / 3;  // 60 degree angle for hexagon
+            let vertices = [];
+            for (let i = 0; i < 6; i++) {
+                let theta = angle * i;
+                let lat = center[0] + latStep * Math.sin(theta);
+                let lon = center[1] + lonStep * Math.cos(theta);
+                vertices.push([lat, lon]);
+            }
+            vertices.push(vertices[0]); // Close the hexagon
+            return vertices;
+        }
+
+        // Function to add honeycomb grid (hexagonal mesh) with no gaps
+        function addHoneycombGrid(map, center, gridRadius, hexRadius) {
+            const [latStep, lonStep] = metersToDegrees(hexRadius * 2, center[0]);
+            const hexHeight = 0.865  * hexRadius;  // Height of a hexagon
+            const hexWidth = 3 * hexRadius;  // Width of a hexagon
+
+            for (let row = -gridRadius; row <= gridRadius; row++) {
+                for (let col = -gridRadius; col <= gridRadius; col++) {
+                    // Calculate the center of each hexagon
+                    const latOffset = row * hexHeight;
+                    const lonOffset = col * hexWidth + (row % 2 === 0 ? 0 : hexWidth / 2);  // Offset alternate rows
+
+                    const hexCenter = [center[0] + latOffset / 111320, center[1] + lonOffset / (111320 * Math.cos(center[0] * Math.PI / 180))];
+                    const hexagon = generateHexagon(hexCenter, hexRadius);
+                    L.polygon(hexagon, {
+                        color: 'black',
+                        fillColor: aqiToColor(100), // Example AQI for color
+                        fillOpacity: 0.3
+                    }).addTo(map);
+                }
+            }
+        }
+
+        const busStops = [
+        { "name": "Bus Stop 1", "lat": 28.62827, "lon": 77.25133, "aqi": 102 },
+        { "name": "Bus Stop 2", "lat": 28.61902, "lon": 77.10476, "aqi": 435 },
+        { "name": "Bus Stop 3", "lat": 28.64897, "lon": 77.15123, "aqi": 348 },
+        { "name": "Bus Stop 4", "lat": 28.57983, "lon": 77.19957, "aqi": 270 },
+        { "name": "Bus Stop 5", "lat": 28.6344, "lon": 77.30191, "aqi": 106 },
+        { "name": "Bus Stop 6", "lat": 28.51239, "lon": 77.24373, "aqi": 71 },
+        { "name": "Bus Stop 7", "lat": 28.56653, "lon": 77.00046, "aqi": 188 },
+        { "name": "Bus Stop 8", "lat": 28.56104, "lon": 77.16721, "aqi": 20 },
+        { "name": "Bus Stop 9", "lat": 28.54378, "lon": 77.17978, "aqi": 102 },
+        { "name": "Bus Stop 10", "lat": 28.72177, "lon": 77.2765, "aqi": 121 },
+        { "name": "Bus Stop 11", "lat": 28.64456, "lon": 77.19332, "aqi": 466 },
+        { "name": "Bus Stop 12", "lat": 28.53103, "lon": 77.25642, "aqi": 214 },
+        { "name": "Bus Stop 13", "lat": 28.60946, "lon": 77.03477, "aqi": 330 },
+        { "name": "Bus Stop 14", "lat": 28.72983, "lon": 77.19878, "aqi": 458 },
+        { "name": "Bus Stop 15", "lat": 28.67644, "lon": 77.20228, "aqi": 87 },
+        { "name": "Bus Stop 16", "lat": 28.5965, "lon": 77.13499, "aqi": 372 },
+        { "name": "Bus Stop 17", "lat": 28.55945, "lon": 77.19201, "aqi": 99 },
+        { "name": "Bus Stop 18", "lat": 28.63403, "lon": 77.00299, "aqi": 359 },
+        { "name": "Bus Stop 19", "lat": 28.53713, "lon": 77.11535, "aqi": 151 },
+        { "name": "Bus Stop 20", "lat": 28.5592, "lon": 77.24183, "aqi": 130 },
+        { "name": "Bus Stop 21", "lat": 28.86453, "lon": 77.09867, "aqi": 149 },
+        { "name": "Bus Stop 22", "lat": 28.67107, "lon": 77.30143, "aqi": 308 },
+        { "name": "Bus Stop 23", "lat": 28.54346, "lon": 76.97072, "aqi": 257 },
+        { "name": "Bus Stop 24", "lat": 28.62454, "lon": 77.31909, "aqi": 343 },
+        { "name": "Bus Stop 25", "lat": 28.54024, "lon": 77.21777, "aqi": 491 },
+        { "name": "Bus Stop 26", "lat": 28.58685, "lon": 77.18972, "aqi": 413 },
+        { "name": "Bus Stop 27", "lat": 28.68157, "lon": 77.28583, "aqi": 293 },
+        { "name": "Bus Stop 28", "lat": 28.73681, "lon": 77.16021, "aqi": 385 },
+        { "name": "Bus Stop 29", "lat": 28.6709, "lon": 77.23113, "aqi": 191 },
+        { "name": "Bus Stop 30", "lat": 28.59065, "lon": 77.0716, "aqi": 443 },
+        { "name": "Bus Stop 31", "lat": 28.56469, "lon": 77.17842, "aqi": 276 },
+        { "name": "Bus Stop 32", "lat": 28.52225, "lon": 77.22907, "aqi": 160 },
+        { "name": "Bus Stop 33", "lat": 28.59045, "lon": 77.06926, "aqi": 459 },
+        { "name": "Bus Stop 34", "lat": 28.64874, "lon": 77.27922, "aqi": 313 },
+        { "name": "Bus Stop 35", "lat": 28.56156, "lon": 77.05107, "aqi": 21 },
+        { "name": "Bus Stop 36", "lat": 28.55943, "lon": 76.96449, "aqi": 252 },
+        { "name": "Bus Stop 37", "lat": 28.66696, "lon": 77.32145, "aqi": 235 },
+        { "name": "Bus Stop 38", "lat": 28.61302, "lon": 77.08658, "aqi": 344 },
+        { "name": "Bus Stop 39", "lat": 28.59243, "lon": 77.18826, "aqi": 48 },
+        { "name": "Bus Stop 40", "lat": 28.6849, "lon": 77.16734, "aqi": 474 },
+        { "name": "Bus Stop 41", "lat": 28.62956, "lon": 77.31727, "aqi": 58 },
+        { "name": "Bus Stop 42", "lat": 28.69755, "lon": 77.18621, "aqi": 169 },
+        { "name": "Bus Stop 43", "lat": 28.56981, "lon": 77.20425, "aqi": 475 },
+        { "name": "Bus Stop 44", "lat": 28.56875, "lon": 77.18427, "aqi": 187 },
+        { "name": "Bus Stop 45", "lat": 28.69023, "lon": 77.09522, "aqi": 463 },
+        { "name": "Bus Stop 46", "lat": 28.68085, "lon": 77.1847, "aqi": 270 },
+        { "name": "Bus Stop 47", "lat": 28.61609, "lon": 77.00687, "aqi": 189 },
+        { "name": "Bus Stop 48", "lat": 28.60208, "lon": 77.21764, "aqi": 445 },
+        { "name": "Bus Stop 49", "lat": 28.63853, "lon": 77.09976, "aqi": 174 },
+        { "name": "Bus Stop 50", "lat": 28.57932, "lon": 77.208, "aqi": 445 },
+        { "name": "Bus Stop 51", "lat": 28.69186, "lon": 77.16754, "aqi": 50 },
+        { "name": "Bus Stop 52", "lat": 28.60214, "lon": 77.29001, "aqi": 363 },
+        { "name": "Bus Stop 53", "lat": 28.66843, "lon": 77.22522, "aqi": 54 },
+        { "name": "Bus Stop 54", "lat": 28.58953, "lon": 77.24641, "aqi": 243 },
+        { "name": "Bus Stop 55", "lat": 28.65967, "lon": 77.31299, "aqi": 319 },
+        { "name": "Bus Stop 56", "lat": 28.6291, "lon": 77.22168, "aqi": 130 },
+        { "name": "Bus Stop 57", "lat": 28.63748, "lon": 77.20707, "aqi": 484 },
+        { "name": "Bus Stop 58", "lat": 28.72953, "lon": 77.09475, "aqi": 306 },
+        { "name": "Bus Stop 59", "lat": 28.55051, "lon": 77.18156, "aqi": 134 },
+        { "name": "Bus Stop 60", "lat": 28.56521, "lon": 77.13442, "aqi": 20 },
+        { "name": "Bus Stop 61", "lat": 28.64843, "lon": 77.2952, "aqi": 328 },
+        { "name": "Bus Stop 62", "lat": 28.71539, "lon": 77.21605, "aqi": 166 },
+        { "name": "Bus Stop 63", "lat": 28.45664, "lon": 77.14717, "aqi": 273 },
+        { "name": "Bus Stop 64", "lat": 28.66979, "lon": 77.20762, "aqi": 387 },
+        { "name": "Bus Stop 65", "lat": 28.59914, "lon": 77.22862, "aqi": 88 },
+        { "name": "Bus Stop 66", "lat": 28.54646, "lon": 77.17948, "aqi": 315 },
+        { "name": "Bus Stop 67", "lat": 28.8364, "lon": 77.12172, "aqi": 13 },
+        { "name": "Bus Stop 68", "lat": 28.56247, "lon": 77.16995, "aqi": 241 },
+        { "name": "Bus Stop 69", "lat": 28.60155, "lon": 77.32599, "aqi": 264 },
+        { "name": "Bus Stop 70", "lat": 28.6829, "lon": 77.30805, "aqi": 345 },
+        { "name": "Bus Stop 71", "lat": 28.63068, "lon": 77.21525, "aqi": 52 },
+        { "name": "Bus Stop 72", "lat": 28.57041, "lon": 77.24677, "aqi": 385 },
+        { "name": "Bus Stop 73", "lat": 28.54237, "lon": 77.22476, "aqi": 339 },
+        { "name": "Bus Stop 74", "lat": 28.6322, "lon": 77.19036, "aqi": 91 },
+        { "name": "Bus Stop 75", "lat": 28.54937, "lon": 77.18061, "aqi": 366 },
+        { "name": "Bus Stop 76", "lat": 28.52802, "lon": 77.2889, "aqi": 443 },
+        { "name": "Bus Stop 77", "lat": 28.54043, "lon": 77.1851, "aqi": 454 },
+        { "name": "Bus Stop 78", "lat": 28.68822, "lon": 77.20637, "aqi": 427 },
+        { "name": "Bus Stop 79", "lat": 28.64902, "lon": 77.30466, "aqi": 263 },
+        { "name": "Bus Stop 80", "lat": 28.57834, "lon": 77.18998, "aqi": 430 },
+        { "name": "Bus Stop 81", "lat": 28.56604, "lon": 77.06492, "aqi": 34 },
+        { "name": "Bus Stop 82", "lat": 28.59314, "lon": 77.07131, "aqi": 205 },
+        { "name": "Bus Stop 83", "lat": 28.53471, "lon": 77.15262, "aqi": 80 },
+        { "name": "Bus Stop 84", "lat": 28.52552, "lon": 77.22587, "aqi": 419 },
+        { "name": "Bus Stop 85", "lat": 28.55878, "lon": 77.19564, "aqi": 49 },
+        { "name": "Bus Stop 86", "lat": 28.80499, "lon": 76.97677, "aqi": 359 },
+        { "name": "Bus Stop 87", "lat": 28.68943, "lon": 77.29154, "aqi": 387 },
+        { "name": "Bus Stop 88", "lat": 28.59822, "lon": 77.16336, "aqi": 1 },
+        { "name": "Bus Stop 89", "lat": 28.67303, "lon": 77.14383, "aqi": 389 },
+        { "name": "Bus Stop 90", "lat": 28.63669, "lon": 77.21831, "aqi": 53 },
+        { "name": "Bus Stop 91", "lat": 28.54543, "lon": 77.30778, "aqi": 105 },
+        { "name": "Bus Stop 92", "lat": 28.54784, "lon": 77.1671, "aqi": 259 },
+        { "name": "Bus Stop 93", "lat": 28.63897, "lon": 77.25135, "aqi": 309 },
+        { "name": "Bus Stop 94", "lat": 28.56185, "lon": 77.18065, "aqi": 476 },
+        { "name": "Bus Stop 95", "lat": 28.50545, "lon": 77.2764, "aqi": 190 },
+        { "name": "Bus Stop 96", "lat": 28.57085, "lon": 77.16914, "aqi": 401 },
+        { "name": "Bus Stop 97", "lat": 28.61632, "lon": 77.0951, "aqi": 217 },
+        { "name": "Bus Stop 98", "lat": 28.63924, "lon": 77.22395, "aqi": 43 },
+        { "name": "Bus Stop 99", "lat": 28.69217, "lon": 77.09847, "aqi": 161 },
+        { "name": "Bus Stop 100", "lat": 28.62885, "lon": 77.0765, "aqi": 201 }
+        // More bus stops can be added here
+    ];
+
+        // Add markers for each bus stop
+        const markers = [];
+        busStops.forEach(function(stop) {
+            const marker = L.marker([stop.lat, stop.lon])
+                .bindPopup(`<strong>${stop.name}</strong><br>AQI: ${stop.aqi}`)
+                .addTo(map);
+            markers.push(marker);
+        });
+
+        // Add search functionality
+        const searchControl = new L.Control.Search({
+            layer: L.featureGroup(markers),
+            propertyName: 'title',
+            marker: false,
+            moveToLocation: function(latlng, title, map) {
+                map.setView(latlng, 16);
+            }
+        }).addTo(map);
+
+        // Add honeycomb grid with no gaps
+        addHoneycombGrid(map, [28.6139, 77.2090], 5, 1000); // Grid radius of 5 hexagons, each with a radius of 1000 meters
+
+    </script>
+</body>
+</html>

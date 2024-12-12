@@ -17,25 +17,6 @@ body {
     color: var(--text-color);
 }
 
-/* Normal font size */
-body.normal-font {
-    font-size: 16px;
-}
-
-/* Larger font size */
-body.large-font {
-    font-size: 20px;
-}
-
-/* Smaller font size */
-body.small-font {
-    font-size: 12px;
-}
-
-/* Font size buttons */
-.font-size-buttons {
-    margin: 20px;
-}
 
 .font-size-buttons button {
     margin-right: 10px;
