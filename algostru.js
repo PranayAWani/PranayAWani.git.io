@@ -53,7 +53,7 @@ const busStops = [
         "so2": { "current": 8, "historical": [7, 9, 8, 8, 7, 8, 9] },
         "pm25": { "current": 45, "historical": [43, 48, 50, 44, 46, 45, 47] },
         "ozone": { "current": 30, "historical": [28, 32, 31, 29, 30, 30, 31] }
-    }
+    },
     // Add similar entries for the rest of the bus stops
     {
         "name": "Delhi University Bus Stop",

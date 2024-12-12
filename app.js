@@ -236,6 +236,59 @@ function showAQIGraph(stopName) {
             }
         }
     });
+    
+    // Generic function to show a graph for a specific parameter
+function showGraph(stopName, parameterKey, chartId, label, borderColor, backgroundColor, yAxisLabel) {
+    const stop = busStops.find(s => s.name === stopName);
+    if (!stop || !stop[parameterKey]?.historical) {
+        alert(`No historical data available for ${label}.`);
+        return;
+    }
+
+    const chartContainer = document.getElementById('chart-container');
+    const ctx = document.getElementById(chartId).getContext('2d');
+
+    // Display the chart container
+    chartContainer.style.display = 'block';
+
+    // Destroy any existing chart instance
+    if (window[chartId]) {
+        window[chartId].destroy();
+    }
+
+    // Create a new chart
+    window[chartId] = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: ['Day 1', 'Day 2', 'Day 3', 'Day 4', 'Day 5', 'Day 6', 'Day 7'],
+            datasets: [{
+                label: `${label} for ${stop.name}`,
+                data: stop[parameterKey].historical,
+                borderColor: borderColor,
+                backgroundColor: backgroundColor,
+                fill: true,
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: { display: true },
+                tooltip: { enabled: true },
+            },
+            scales: {
+                x: { title: { display: true, text: 'Days' } },
+                y: { title: { display: true, text: yAxisLabel } }
+            }
+        }
+    });
+}
+
+// Specific functions for each parameter
+document.addEventListener("DOMContentLoaded", function() {
+    document.getElementById("showAQIGraph").addEventListener("click", () => showGraph("AQI", "aqi"));
+})
+
+
 }
 
 // Reset the search box when clicking outside

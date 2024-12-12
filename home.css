@@ -164,3 +164,10 @@ button:hover {
     transform: translateY(-2px);
     box-shadow: 0 6px 12px var(--shadow-color);
 }
+
+#login-email{
+    background: rgba(248, 249, 250, 0.9);
+    color: rgba(248, 249, 250, 0.9);
+    border: rgba(248, 249, 250, 0.9);
+    box-shadow: 0px 0px 0px white;
+}

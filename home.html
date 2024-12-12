@@ -40,12 +40,12 @@
             <div class="form">
                 <input type="text" id="email" placeholder="Enter Email" required>
                 <input type="password" id="password" placeholder="Enter Password" required>
-                <label style="width:min-content; display: flex; flex-direction:row "    >
+                <!-- <label style="width:min-content; display: flex; flex-direction:row ">
                     <input  type="checkbox" id="remember-me"> Remember Me
-                </label>
-                <button id="login-email">Login</button>
+                </label> -->
+                <button style="background-color: white; color:white" id="login-email">Login</button>
                 <button id="google-login">Login with Google</button>
-                <a href="#" id="forgot-password">Forgot Password?</a>
+                <!-- <a href="#" id="forgot-password">Forgot Password?</a> -->
             </div>
             <div id="error-message" style="color: red; margin-top: 10px;"></div>
         </div>
@@ -89,9 +89,16 @@
                     localStorage.setItem('userEmail', email);
                     localStorage.setItem('userPassword', password);
                 }
+
                 alert("Login successful!");
                 console.log("User:", userCredential.user);
-                window.location.href = "index.html"; // Redirect to homepage
+
+                // Redirect based on email domain
+                if (email.endsWith("@ves.ac.in")) {
+                    window.location.href = "government.html";
+                } else {
+                    window.location.href = "index.html";
+                }
             } catch (error) {
                 document.getElementById('error-message').innerText = error.message;
             }
@@ -105,7 +112,14 @@
                 const result = await signInWithPopup(auth, provider);
                 alert("Google Login successful!");
                 console.log("User:", result.user);
-                window.location.href = "index.html"; // Redirect to homepage
+
+                // Redirect based on email domain
+                const email = result.user.email;
+                if (email.endsWith("@ves.ac.in")) {
+                    window.location.href = "government.html";
+                } else {
+                    window.location.href = "index.html";
+                }
             } catch (error) {
                 document.getElementById('error-message').innerText = error.message;
             }

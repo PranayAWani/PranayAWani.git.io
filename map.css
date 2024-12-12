@@ -158,7 +158,12 @@ main {
     height: auto;
     margin-top: 20px;
 }
-
+canvas {
+    width: 400px;
+    height: 200px;
+    margin: 20px;
+  }
+  
 /* 
 /* Mobile Adjustments */
 @media (max-width: 768px) {

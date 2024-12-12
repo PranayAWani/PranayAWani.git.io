@@ -52,11 +52,12 @@
         </div>
 
         <div id="chart-container" style="display: none; width: 400px; height: auto; position: fixed; right: 0;">
-            <canvas id="aqi-chart" aria-label="AQI Chart"></canvas>
-            <canvas id="co-graph" aria-label="CO Chart"></canvas>
-            <canvas id="so2-graph" aria-label="SO2 Chart"></canvas>
-            <canvas id="ozone-graph" aria-label="Ozone Chart"></canvas>
-            <canvas id="pm25-graph" aria-label="PM2.5 Chart"></canvas>
+          <canvas id="aqi-chart" aria-label="AQI Chart"></canvas>
+          <canvas id="co-graph" aria-label="CO Chart"></canvas>
+          <canvas id="so2-graph" aria-label="SO₂ Chart"></canvas>
+          <canvas id="ozone-graph" aria-label="Ozone Chart"></canvas>
+          <canvas id="pm25-graph" aria-label="PM2.5 Chart"></canvas>
+          
         </div>
 
         <div id="map" class="map" style="height: 500px;" aria-label="AQI Map"></div>
@@ -73,177 +74,79 @@
     <script src="app.js"></script>
     <script src="bus.js"></script>
     <script src="darkmode.js"></script>
-    <script>
-        const busStops = [
-            {
-                "name": "Kashmere Gate ISBT",
-                "lat": 28.6673,
-                "lng": 77.2260,
-                "aqi": 120,
-                "historicalData": [118, 122, 125, 119, 121, 120, 123],
-                "co": { "current": 0.5, "historical": [0.4, 0.6, 0.5, 0.5, 0.4, 0.5, 0.6] },
-                "so2": { "current": 12, "historical": [11, 13, 12, 12, 11, 12, 13] },
-                "pm25": { "current": 60, "historical": [58, 62, 65, 59, 61, 60, 63] },
-                "ozone": { "current": 32, "historical": [30, 34, 33, 31, 32, 32, 33] }
-            },
-        ];
-
-        // Function to show AQI Graphs for a selected bus stop
-        function showAQIGraph(stopName) {
-            const stop = busStops.find(s => s.name === stopName);
-            if (!stop || !stop.historicalData) {
-                alert("No historical data available.");
-                return;
-            }
-
-            const chartContainer = document.getElementById('chart-container');
-            const aqiCtx = document.getElementById('aqi-chart').getContext('2d');
-            const coCtx = document.getElementById('co-graph').getContext('2d');
-            const so2Ctx = document.getElementById('so2-graph').getContext('2d');
-            const ozoneCtx = document.getElementById('ozone-graph').getContext('2d');
-            const pm25Ctx = document.getElementById('pm25-graph').getContext('2d');
-
-            chartContainer.style.display = 'block';
-
-            // Destroy any existing charts before rendering new ones
-            if (window.aqiChart) window.aqiChart.destroy();
-            if (window.coChart) window.coChart.destroy();
-            if (window.so2Chart) window.so2Chart.destroy();
-            if (window.ozoneChart) window.ozoneChart.destroy();
-            if (window.pm25Chart) window.pm25Chart.destroy();
-
-            // Create AQI Chart
-            window.aqiChart = new Chart(aqiCtx, {
-                type: 'line',
-                data: {
-                    labels: ['Day 1', 'Day 2', 'Day 3', 'Day 4', 'Day 5', 'Day 6', 'Day 7'],
-                    datasets: [{
-                        label: `AQI for ${stop.name}`,
-                        data: stop.historicalData,
-                        borderColor: 'rgba(75, 192, 192, 1)',
-                        backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                        fill: true,
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    plugins: { legend: { display: true }, tooltip: { enabled: true } },
-                    scales: {
-                        x: { title: { display: true, text: 'Days' } },
-                        y: { title: { display: true, text: 'AQI Value' } }
-                    }
-                }
-            });
-
-            // Create CO Chart
-            window.coChart = new Chart(coCtx, {
-                type: 'line',
-                data: {
-                    labels: ['Day 1', 'Day 2', 'Day 3', 'Day 4', 'Day 5', 'Day 6', 'Day 7'],
-                    datasets: [{
-                        label: `CO for ${stop.name}`,
-                        data: stop.co.historical,
-                        borderColor: 'rgba(255, 99, 132, 1)',
-                        backgroundColor: 'rgba(255, 99, 132, 0.2)',
-                        fill: true,
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    plugins: { legend: { display: true }, tooltip: { enabled: true } },
-                    scales: {
-                        x: { title: { display: true, text: 'Days' } },
-                        y: { title: { display: true, text: 'CO Value (ppm)' } }
-                    }
-                }
-            });
-
-            // Create SO2 Chart
-            window.so2Chart = new Chart(so2Ctx, {
-                type: 'line',
-                data: {
-                    labels: ['Day 1', 'Day 2', 'Day 3', 'Day 4', 'Day 5', 'Day 6', 'Day 7'],
-                    datasets: [{
-                        label: `SO2 for ${stop.name}`,
-                        data: stop.so2.historical,
-                        borderColor: 'rgba(153, 102, 255, 1)',
-                        backgroundColor: 'rgba(153, 102, 255, 0.2)',
-                        fill: true,
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    plugins: { legend: { display: true }, tooltip: { enabled: true } },
-                    scales: {
-                        x: { title: { display: true, text: 'Days' } },
-                        y: { title: { display: true, text: 'SO2 Value (ppb)' } }
-                    }
-                }
-            });
-
-            // Create Ozone Chart
-            window.ozoneChart = new Chart(ozoneCtx, {
-                type: 'line',
-                data: {
-                    labels: ['Day 1', 'Day 2', 'Day 3', 'Day 4', 'Day 5', 'Day 6', 'Day 7'],
-                    datasets: [{
-                        label: `Ozone for ${stop.name}`,
-                        data: stop.ozone.historical,
-                        borderColor: 'rgba(255, 159, 64, 1)',
-                        backgroundColor: 'rgba(255, 159, 64, 0.2)',
-                        fill: true,
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    plugins: { legend: { display: true }, tooltip: { enabled: true } },
-                    scales: {
-                        x: { title: { display: true, text: 'Days' } },
-                        y: { title: { display: true, text: 'Ozone Value (ppb)' } }
-                    }
-                }
-            });
-
-            // Create PM2.5 Chart
-            window.pm25Chart = new Chart(pm25Ctx, {
-                type: 'line',
-                data: {
-                    labels: ['Day 1', 'Day 2', 'Day 3', 'Day 4', 'Day 5', 'Day 6', 'Day 7'],
-                    datasets: [{
-                        label: `PM2.5 for ${stop.name}`,
-                        data: stop.pm25.historical,
-                        borderColor: 'rgba(54, 162, 235, 1)',
-                        backgroundColor: 'rgba(54, 162, 235, 0.2)',
-                        fill: true,
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    plugins: { legend: { display: true }, tooltip: { enabled: true } },
-                    scales: {
-                        x: { title: { display: true, text: 'Days' } },
-                        y: { title: { display: true, text: 'PM2.5 Value (µg/m³)' } }
-                    }
-                }
-            });
+    <!-- <script>
+      function showAllGraphs(stopName) {
+        const stop = busStops.find(s => s.name === stopName);
+        if (!stop) {
+            alert("No data available for this bus stop.");
+            return;
         }
-
-        // Function to search bus stops based on user input
-        document.getElementById('search-input').addEventListener('input', function(e) {
-            const query = e.target.value.toLowerCase();
-            const results = busStops.filter(stop => stop.name.toLowerCase().includes(query));
-            const searchResultsContainer = document.getElementById('search-results');
-            searchResultsContainer.innerHTML = '';
-
-            results.forEach(stop => {
-                const li = document.createElement('li');
-                li.textContent = stop.name;
-                li.onclick = function() { showAQIGraph(stop.name); };
-                searchResultsContainer.appendChild(li);
-            });
-
-            searchResultsContainer.style.display = results.length > 0 ? 'block' : 'none';
+    
+        const chartContainer = document.getElementById('chart-container');
+        chartContainer.style.display = 'flex';
+    
+        // Destroy existing charts if any
+        ['aqiChart', 'coChart', 'so2Chart', 'ozoneChart', 'pm25Chart'].forEach(chart => {
+            if (window[chart]) window[chart].destroy();
         });
-    </script>
+    
+        // Configuration for parameters
+        const parameters = [
+            { key: 'historicalData', label: 'AQI', canvasId: 'aqi-chart', color: 'rgba(75, 192, 192, 1)', bgColor: 'rgba(75, 192, 192, 0.2)' },
+            { key: 'co', label: 'CO (ppm)', canvasId: 'co-graph', color: 'rgba(255, 99, 132, 1)', bgColor: 'rgba(255, 99, 132, 0.2)' },
+            { key: 'so2', label: 'SO₂ (ppb)', canvasId: 'so2-graph', color: 'rgba(153, 102, 255, 1)', bgColor: 'rgba(153, 102, 255, 0.2)' },
+            { key: 'ozone', label: 'Ozone (ppb)', canvasId: 'ozone-graph', color: 'rgba(255, 159, 64, 1)', bgColor: 'rgba(255, 159, 64, 0.2)' },
+            { key: 'pm25', label: 'PM2.5 (µg/m³)', canvasId: 'pm25-graph', color: 'rgba(54, 162, 235, 1)', bgColor: 'rgba(54, 162, 235, 0.2)' },
+        ];
+    
+        // Create charts for all parameters
+        parameters.forEach(param => {
+            const ctx = document.getElementById(param.canvasId).getContext('2d');
+            const dataKey = param.key === 'historicalData' ? param.key : `${param.key}.historical`;
+    
+            window[`${param.label.toLowerCase().replace(/[^\w]/g, '')}Chart`] = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: ['Day 1', 'Day 2', 'Day 3', 'Day 4', 'Day 5', 'Day 6', 'Day 7'],
+                    datasets: [{
+                        label: `${param.label} for ${stop.name}`,
+                        data: param.key === 'historicalData' ? stop[param.key] : stop[param.key]?.historical,
+                        borderColor: param.color,
+                        backgroundColor: param.bgColor,
+                        fill: true,
+                    }],
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: { display: true },
+                        tooltip: { enabled: true },
+                    },
+                    scales: {
+                        x: { title: { display: true, text: 'Days' } },
+                        y: { title: { display: true, text: `${param.label} Value` } },
+                    },
+                },
+            });
+        });
+    }
+    
+    // Search and trigger graph rendering
+    document.getElementById('search-input').addEventListener('input', function (e) {
+        const query = e.target.value.toLowerCase();
+        const results = busStops.filter(stop => stop.name.toLowerCase().includes(query));
+        const searchResultsContainer = document.getElementById('search-results');
+        searchResultsContainer.innerHTML = '';
+    
+        results.forEach(stop => {
+            const li = document.createElement('li');
+            li.textContent = stop.name;
+            li.onclick = function () { showAllGraphs(stop.name); };
+            searchResultsContainer.appendChild(li);
+        });
+    
+        searchResultsContainer.style.display = results.length > 0 ? 'block' : 'none';
+    });
+    </script> -->
 </body>
 </html>

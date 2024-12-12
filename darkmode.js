@@ -1,11 +1,17 @@
+// Function to change the font size on the page
 function setFontSize(size) {
-    document.body.classList.remove('normal-font', 'large-font', 'small-font');
-    document.body.classList.add(size + '-font');
+    // Remove any existing font size classes
+    document.body.classList.remove('small', 'normal', 'large');
+    // Add the new font size class
+    document.body.classList.add(size);
 }
 
-// Set default font size on page load
-document.addEventListener('DOMContentLoaded', () => {
-    setFontSize('normal');
+// Add event listeners to the font size buttons
+document.querySelectorAll('.font-size-button').forEach(button => {
+    button.addEventListener('click', () => {
+        const size = button.getAttribute('onclick').match(/\(([^)]+)\)/)[1].replace(/'/g, '');
+        setFontSize(size);
+    });
 });
 
 document.addEventListener('DOMContentLoaded', () => {
