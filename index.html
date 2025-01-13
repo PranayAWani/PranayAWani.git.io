@@ -1,156 +1,65 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <link rel="icon" href="logo.jpg" type="image/x-icon"> 
-    <link rel="shortcut icon" href="logo.jpg" type="image/x-icon">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login Page</title>
-    <link rel="stylesheet" href="home.css">
-    <link rel="stylesheet" href="darkmode.css"> 
-    <script type="text/javascript">
-        function googleTranslateElementInit() {
-            new google.translate.TranslateElement({
-                pageLanguage: 'en',
-                includedLanguages: 'en,hi,bn,te,ta,ml,pa,mr,gu,ur,kn,or,as,ma,ne,sid,bo,sa,ckb,km,guw,mlt,sd,si',
-            }, 'google_translate_element');
-        }
-    </script>
-    <script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+    <title>Login - OTTOVOX</title>
+    <link rel="icon" href="icon.png" type="image/x-icon">
+    <link rel="stylesheet" href="login.css">
+    <!-- <script type="module" src="login.js" defer></script> -->
 </head>
+
 <body>
-    <header>
-        <div class="company-info">
-            <img src="logo.jpg" alt="VAYU Logo" class="company-logo"> <!-- Added company logo -->
-            <div class="company-details">
-                <span class="company-name">VAYU</span>
-                <span class="slogan">BUILD TO BREATH CLEAN</span>
-            </div>
-        </div>
-        <div id="google_translate_element" class="translation-container"></div>
-        <div class="font-size-buttons">
-            <button onclick="setFontSize('small')" class="font-size-button">A-</button>
-            <button onclick="setFontSize('normal')" class="font-size-button">A</button>
-            <button onclick="setFontSize('large')" class="font-size-button">A+</button>
-        </div>
-    </header>
-    <main>
-        <div class="login-container">
-            <h2>Login</h2>
-            <div class="form">
-                <input type="text" id="email" placeholder="Enter Email" required>
-                <input type="password" id="password" placeholder="Enter Password" required>
-                <!-- <label style="width:min-content; display: flex; flex-direction:row ">
-                    <input  type="checkbox" id="remember-me"> Remember Me
-                </label> -->
-                <button style="background-color: white; color:white" id="login-email">Login</button>
-                <button id="google-login">Login with Google</button>
-                <!-- <a href="#" id="forgot-password">Forgot Password?</a> -->
-            </div>
-            <div id="error-message" style="color: red; margin-top: 10px;"></div>
-        </div>
-    </main>
-    <footer>
-        <div class="footer-content">
-            <p>&copy; 2024 AQI Index Monitor. All rights reserved.</p>
-        </div>
-    </footer>
+    <!-- Background Overlay -->
+    <div class="background-overlay"></div>
 
-    <!-- Firebase App and Auth SDK -->
+    <!-- Main Container -->
+    <div class="login-container">
+        <div class="login-header">
+            <h1>OTTOVOX</h1>
+            <p class="subheading">Your gateway to the future of OTT streaming</p>
+        </div>
+            <button type="button" id="google-login" class="google-login-button">
+                Login with Google
+            </button>
+    </div>
     <script type="module">
-        // Import Firebase SDKs
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-app.js";
-        import { getAuth, signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider, sendPasswordResetEmail } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-auth.js";
+        // Import the necessary Firebase modules
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-app.js";
+        import { getAuth, signInWithPopup, GoogleAuthProvider } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-auth.js";
 
-       // Your Firebase Configuration
-       const firebaseConfig = {
-        apiKey: "AIzaSyCPVKX0xD12qUuZUsVMJML3ziYmM_zG27U",
-        authDomain: "hardware-c4141.firebaseapp.com",
-        projectId: "hardware-c4141",
-        storageBucket: "hardware-c4141.appspot.com",
-        messagingSenderId: "952737919097",
-        appId: "1:952737919097:web:4fc7c24e916a2106d5a4a8",
-        measurementId: "G-NSLYTPT3NC"
-        };
+        // Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyCPVKX0xD12qUuZUsVMJML3ziYmM_zG27U",
+    authDomain: "hardware-c4141.firebaseapp.com",
+    projectId: "hardware-c4141",
+    storageBucket: "hardware-c4141.appspot.com",
+    messagingSenderId: "952737919097",
+    appId: "1:952737919097:web:4fc7c24e916a2106d5a4a8",
+    measurementId: "G-NSLYTPT3NC"
+        };
 
         // Initialize Firebase
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
 
-        // Email and Password Login
-        document.getElementById('login-email').addEventListener('click', async () => {
-            const email = document.getElementById('email').value;
-            const password = document.getElementById('password').value;
-            const rememberMe = document.getElementById('remember-me').checked;
-
-            try {
-                const userCredential = await signInWithEmailAndPassword(auth, email, password);
-                if (rememberMe) {
-                    localStorage.setItem('userEmail', email);
-                    localStorage.setItem('userPassword', password);
-                }
-
-                alert("Login successful!");
-                console.log("User:", userCredential.user);
-
-                // Redirect based on email domain
-                if (email.endsWith("@ves.ac.in")) {
-                    window.location.href = "government.html";
-                } else {
-                    window.location.href = "home.html";
-                }
-            } catch (error) {
-                document.getElementById('error-message').innerText = error.message;
-            }
-        });
-
-        // Google Login
-        document.getElementById('google-login').addEventListener('click', async () => {
+        // Google Authentication
+        const googleButton = document.getElementById('google-login');
+        googleButton.addEventListener('click', async () => {
             const provider = new GoogleAuthProvider();
-
             try {
                 const result = await signInWithPopup(auth, provider);
-                alert("Google Login successful!");
-                console.log("User:", result.user);
-
-                // Redirect based on email domain
-                const email = result.user.email;
-                if (email.endsWith("@ves.ac.in")) {
-                    window.location.href = "government.html";
-                } else {
-                    window.location.href = "home.html";
-                }
+                const user = result.user;
+                alert(`Welcome, ${user.displayName}!`);
+                // Redirect or perform actions after login
+                window.location.href = "home.html";
             } catch (error) {
-                document.getElementById('error-message').innerText = error.message;
-            }
-        });
-
-        // Forgot Password
-        document.getElementById('forgot-password').addEventListener('click', async () => {
-            const email = document.getElementById('email').value;
-
-            if (email) {
-                try {
-                    await sendPasswordResetEmail(auth, email);
-                    alert("Password reset email sent!");
-                } catch (error) {
-                    document.getElementById('error-message').innerText = error.message;
-                }
-            } else {
-                document.getElementById('error-message').innerText = "Please enter your email address.";
-            }
-        });
-
-        // Auto-fill credentials if remember me was checked
-        document.addEventListener('DOMContentLoaded', () => {
-            const storedEmail = localStorage.getItem('userEmail');
-            const storedPassword = localStorage.getItem('userPassword');
-            if (storedEmail && storedPassword) {
-                document.getElementById('email').value = storedEmail;
-                document.getElementById('password').value = storedPassword;
-                document.getElementById('remember-me').checked = true;
+                console.error('Error during login:', error);
+                alert('Login failed. Please try again.');
             }
         });
     </script>
 </body>
+
 </html>
